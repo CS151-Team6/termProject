@@ -1,0 +1,8 @@
+.hbox-container {
+    -fx-alignment: center; /* Horizontal centering within HBox */
+}
+
+.centered-text {
+    -fx-alignment: center;
+    /* Additional styling for the centered text */
+}

@@ -1,0 +1,10 @@
+.hbox-container {
+    -fx-alignment: center; /* Horizontal centering within HBox */
+}
+
+.vbox-container {
+    /* No vertical alignment styles applied */
+    -fx-alignment: center-top;
+    -fx-spacing: 10px; /* Optional spacing between Label tags */
+}
+

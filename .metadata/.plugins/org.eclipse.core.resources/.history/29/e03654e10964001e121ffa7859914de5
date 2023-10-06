@@ -1,0 +1,11 @@
+.hbox-container {
+    -fx-alignment: center; /* Horizontal centering within HBox */
+}
+
+
+
+.heading {
+    /* Only center text horizontally */
+    -fx-alignment: center-top; /* Horizontal centering, left vertical alignment */
+    /* Additional styling for the centered text */
+}
