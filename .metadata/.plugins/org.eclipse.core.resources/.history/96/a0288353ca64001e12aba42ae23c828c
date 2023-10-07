@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox styleClass="hbox-container" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <VBox prefHeight="720.0" prefWidth="1280.0" styleClass="vbox-container">
+            <children>
+                <Text styleClass="heading" text="Homepage" />
+                <Button fx:id="navigateButton" text="Add a new Project" />
+            </children>
+        </VBox>
+    </children>
+</HBox>
