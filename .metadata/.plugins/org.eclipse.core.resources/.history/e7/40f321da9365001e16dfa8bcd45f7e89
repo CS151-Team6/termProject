@@ -16,7 +16,7 @@
                 <Hyperlink text="Create a New Project" onAction="#homeToNewProject"/>
                 
                 <Text styleClass="heading" text="Your Projects" />
-                <Text text="Your have not created any projects." />
+                <Text text="Your projects will appear here" />
             </children>
         </VBox>
     </children>

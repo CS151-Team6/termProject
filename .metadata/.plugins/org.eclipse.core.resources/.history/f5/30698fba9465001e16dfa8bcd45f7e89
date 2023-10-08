@@ -31,7 +31,7 @@ public class MainController {
     }
     
     @FXML
-    private void newProjectToHome(ActionEvent event) {
+    private void NewProjectToHome(ActionEvent event) {
         String link = "view/Main.fxml"; // Set your relative link here
         redirectHelper(event, link);
     }

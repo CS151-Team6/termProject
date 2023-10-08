@@ -14,6 +14,9 @@
                 <Text styleClass="heading" text="Homepage" />
                 <Text styleClass="description" text="To get started, create a new project!" />
                 <Hyperlink text="Create a New Project" onAction="#homeToNewProject"/>
+                
+                <Text styleClass="heading" text="Your Projects" />
+                <Text text="Your have not created any projects." />
             </children>
         </VBox>
     </children>

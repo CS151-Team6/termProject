@@ -30,21 +30,5 @@ public class MainController {
         stage.getScene().setRoot(newRoot);
     }
     
-    @FXML
-    private void newProjectToHome(ActionEvent event) {
-        String link = "view/Main.fxml"; // Set your relative link here
-        redirectHelper(event, link);
-    }
-    
-    private void redirectHelper(ActionEvent event, String link) {
-        Parent newRoot = null;
-		try {
-			newRoot = FXMLLoader.load(getClass().getClassLoader().getResource(link));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
-        stage.getScene().setRoot(newRoot);
-    }
+
 }
