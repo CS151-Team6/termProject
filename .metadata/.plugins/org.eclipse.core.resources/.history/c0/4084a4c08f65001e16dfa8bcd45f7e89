@@ -17,7 +17,7 @@ public class MainController {
 
     @FXML
     private void handleLinkClick(ActionEvent event) {
-        String link = "view/NewProject.fxml"; // Set your relative link here
+        String link = "view/Page2.fxml"; // Set your relative link here
         Stage stage = new Stage();
         try {
             // Parent newContent = loader.load();
