@@ -13,7 +13,7 @@
             <children>
                 <Text styleClass="heading" text="Homepage" />
                 <Text styleClass="description" text="To get started, create a new project!" />
-                <Hyperlink text="Create a New Project" onAction="#handleLinkClick"/>
+                <Hyperlink text="Create a New Project" onAction="#homeToNewProject"/>
             </children>
         </VBox>
     </children>

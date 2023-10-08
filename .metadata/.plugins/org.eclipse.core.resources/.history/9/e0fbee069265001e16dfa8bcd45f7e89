@@ -18,10 +18,10 @@ public class MainController {
     @FXML
     private void homeToNewProject(ActionEvent event) {
         // Handle the hyperlink click event here
-        String link = "view/NewProject.fxml"; // Set your relative link here
+        String relativeLink = "view/NewProject.fxml"; // Set your relative link here
         Parent newRoot = null;
 		try {
-			newRoot = FXMLLoader.load(getClass().getClassLoader().getResource(link));
+			newRoot = FXMLLoader.load(getClass().getResource(relativeLink));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

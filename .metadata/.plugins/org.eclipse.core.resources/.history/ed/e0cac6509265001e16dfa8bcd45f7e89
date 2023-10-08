@@ -21,7 +21,7 @@ public class MainController {
         String link = "view/NewProject.fxml"; // Set your relative link here
         Parent newRoot = null;
 		try {
-			newRoot = FXMLLoader.load(getClass().getClassLoader().getResource(link));
+			newRoot = )FXMLLoader.load(getClass().getClassLoader().getResource(link));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
