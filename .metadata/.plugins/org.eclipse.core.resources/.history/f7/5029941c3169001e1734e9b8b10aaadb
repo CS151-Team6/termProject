@@ -1,0 +1,48 @@
+package application.controller;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+public class DatabaseController {
+	
+    void databaseOpenTest() {
+        try (Connection conn =
+                DriverManager.getConnection("jdbc:sqlite:test.db");
+            ) {
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(0);
+        }
+        System.out.println("Opened database successfully");
+    }
+    
+    private void createTable() {
+
+
+
+    	        SQLiteDataSource ds = null;
+
+    	        try {
+    	            ds = new SQLiteDataSource();
+    	            ds.setUrl("jdbc:sqlite:test.db");
+    	        } catch ( Exception e ) {
+    	            e.printStackTrace();
+    	            System.exit(0);
+    	        }
+    	        System.out.println( "Opened database successfully" );
+
+    	        String query = "CREATE TABLE IF NOT EXISTS test ( " +
+    	                         "ID INTEGER PRIMARY KEY, " +
+    	                         "NAME TEXT NOT NULL )";
+
+    	        try ( Connection conn = ds.getConnection();
+    	              Statement stmt = conn.createStatement(); ) {
+    	            int rv = stmt.executeUpdate( query );
+    	            System.out.println( "executeUpdate() returned " + rv );
+    	        } catch ( SQLException e ) {
+    	            e.printStackTrace();
+    	            System.exit( 0 );
+    	        }
+    	        System.out.println( "Created database successfully" );
+    }
+}

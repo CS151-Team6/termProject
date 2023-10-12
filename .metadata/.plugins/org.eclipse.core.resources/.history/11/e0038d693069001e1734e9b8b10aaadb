@@ -44,9 +44,7 @@ public class MainController {
         stage.getScene().setRoot(newRoot);
     }
     
-    public void databaseOpenTest() {
-    	DatabaseController dbController = new DatabaseController();
-    	dbController.openDatabase();
-    	dbController.createTable();
+    private void databaseOpenTest() {
+
     }
 }

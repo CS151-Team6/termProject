@@ -46,7 +46,7 @@ public class MainController {
     
     public void databaseOpenTest() {
     	DatabaseController dbController = new DatabaseController();
-    	dbController.openDatabase();
+    	dbController.databaseOpenTest();
     	dbController.createTable();
     }
 }

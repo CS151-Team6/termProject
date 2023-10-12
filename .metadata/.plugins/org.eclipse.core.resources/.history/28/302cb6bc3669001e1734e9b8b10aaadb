@@ -20,15 +20,13 @@ public class ProjectController {
     @FXML
     private TextField name;
     @FXML
-    private DatePicker dateCreated;
+    private DatePicker date;
     @FXML 
     private TextArea description;
     
     @FXML
     private void newProjectToHome(ActionEvent event) {
     	System.out.println(name.getText());
-    	System.out.println(dateCreated.getValue());
-    	System.out.println(description.getText());
         String link = "view/Main.fxml";
         MainController mainController = new MainController();
         mainController.redirectHelper(event, link);
