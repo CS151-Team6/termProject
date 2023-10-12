@@ -5,6 +5,10 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
 import javafx.fxml.FXMLLoader;
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+import application.controller.MainController;
 
 
 public class Main extends Application {
@@ -16,6 +20,9 @@ public class Main extends Application {
 			scene.getStylesheets().add(getClass().getClassLoader().getResource("css/application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();
+			
+			MainController mainController = new MainController();
+			mainController.databaseOpenTest();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

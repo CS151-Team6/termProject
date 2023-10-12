@@ -1,5 +1,7 @@
 package application.controller;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,13 +32,7 @@ public class MainController {
         stage.getScene().setRoot(newRoot);
     }
     
-    @FXML
-    private void newProjectToHome(ActionEvent event) {
-        String link = "view/Main.fxml"; // Set your relative link here
-        redirectHelper(event, link);
-    }
-    
-    private void redirectHelper(ActionEvent event, String link) {
+    void redirectHelper(ActionEvent event, String link) {
         Parent newRoot = null;
 		try {
 			newRoot = FXMLLoader.load(getClass().getClassLoader().getResource(link));
@@ -46,5 +42,16 @@ public class MainController {
 		
         Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
         stage.getScene().setRoot(newRoot);
+    }
+    
+    public void databaseOpenTest() {
+        try (Connection conn =
+                DriverManager.getConnection("jdbc:sqlite:test.db");
+            ) {
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(0);
+        }
+        System.out.println("Opened database successfully");
     }
 }
