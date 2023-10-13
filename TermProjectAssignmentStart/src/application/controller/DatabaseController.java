@@ -2,12 +2,64 @@ package application.controller;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 import org.sqlite.SQLiteDataSource;
 
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+
 public class DatabaseController {
+	private SQLiteDataSource getDataSource() {
+        SQLiteDataSource ds = null;
+
+        try {
+            ds = new SQLiteDataSource();
+            ds.setUrl("jdbc:sqlite:test.db");
+        } catch ( Exception e ) {
+            e.printStackTrace();
+            System.exit(0);
+        }
+        
+        return ds;
+	}
+	
+	private int updateQuery(String query) {
+		SQLiteDataSource ds = getDataSource();
+		try {
+			Connection connection = ds.getConnection();
+			Statement statement = connection.createStatement();
+			System.out.println("query: " + query + " succeeded");
+			return statement.executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return -1;
+		}
+		
+	}
+	
+	private int executeQuery(String query) {
+		SQLiteDataSource ds = getDataSource();
+		ResultSet resultSet;
+		int rowCount = 0;
+		
+		try {
+	        Connection connection = ds.getConnection();
+	        PreparedStatement preparedStatement = connection.prepareStatement(query);
+	        resultSet = preparedStatement.executeQuery();
+	        System.out.println("query: " + query + " succeeded");
+	        
+	        while (resultSet.next()) rowCount++;
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+        
+        return rowCount;
+	}
 	
     void openDatabase() {
         try (Connection conn =
@@ -21,30 +73,22 @@ public class DatabaseController {
     }
     
     void createTable() {
-        SQLiteDataSource ds = null;
-
-        try {
-            ds = new SQLiteDataSource();
-            ds.setUrl("jdbc:sqlite:test.db");
-        } catch ( Exception e ) {
-            e.printStackTrace();
-            System.exit(0);
-        }
-        System.out.println( "Opened database successfully" );
-        
         String query = "CREATE TABLE IF NOT EXISTS projectTable ( " +
-                "ID INTEGER PRIMARY KEY, " +
+                "ID INTEGER AUTO_INCREMENT PRIMARY KEY, " +
+        		"NAME STRING, " +
                 "CREATED DATE, " +
                 "DESCRIPTION TEXT)";
-
-
-        try ( Connection conn = ds.getConnection();
-              Statement stmt = conn.createStatement(); ) {
-              stmt.executeUpdate( query );
-              System.out.println( "Created database successfully" );
-        } catch ( SQLException e ) {
-            e.printStackTrace();
-            System.exit( 0 );
-        }
+        
+        updateQuery(query);
+    }
+    
+    void insertProject(TextField nameField, DatePicker dateField, TextArea descriptionField) {
+    	String name = "\"" + nameField.getText() + "\"" ;
+    	String date = "\""  + dateField.getValue().toString() + "\"" ;
+    	String text = "\""  + descriptionField.getText() + "\"";
+    	
+    	String query = "INSERT INTO projectTable (NAME, CREATED, DESCRIPTION) " +
+    			"VALUES (" + name + ", " + date + ", " + text + ")";
+    	updateQuery(query);
     }
 }
