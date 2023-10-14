@@ -1,0 +1,120 @@
+package application.controller;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Date;
+
+import org.sqlite.SQLiteDataSource;
+
+import application.database.Project;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+
+public class DatabaseController {
+	private SQLiteDataSource getDataSource() {
+        SQLiteDataSource ds = null;
+
+        try {
+            ds = new SQLiteDataSource();
+            ds.setUrl("jdbc:sqlite:test.db");
+        } catch ( Exception e ) {
+            e.printStackTrace();
+            System.exit(0);
+        }
+        
+        return ds;
+	}
+	
+	// used for UPDATE, INSERT, and DELETE
+	private int updateQuery(String query) {
+		SQLiteDataSource ds = getDataSource();
+		try {
+			Connection connection = ds.getConnection();
+			Statement statement = connection.createStatement();
+			System.out.println("query: " + query + " succeeded");
+			return statement.executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return -1;
+		}
+		
+	}
+	
+	// used for CREATE and SELECT
+	private ResultSet executeQuery(String query) {
+		SQLiteDataSource ds = getDataSource();
+		ResultSet resultSet;
+		
+		try {
+	        Connection connection = ds.getConnection();
+	        PreparedStatement preparedStatement = connection.prepareStatement(query);
+	        resultSet = preparedStatement.executeQuery();
+	        System.out.println("query: " + query + " succeeded");
+	        
+	        return resultSet;
+		} catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+        
+	}
+	
+    void openDatabase() {
+        try (Connection conn =
+                DriverManager.getConnection("jdbc:sqlite:test.db");
+            ) {
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(0);
+        }
+        System.out.println("Opened database successfully");
+    }
+    
+    void createTable() {
+        String query = "CREATE TABLE IF NOT EXISTS projectTable ( " +
+                "ID INTEGER AUTO_INCREMENT PRIMARY KEY, " +
+        		"NAME STRING, " +
+                "CREATED DATE, " +
+                "DESCRIPTION TEXT)";
+        
+        executeQuery(query);
+    }
+    
+    void insertProject(TextField nameField, DatePicker dateField, TextArea descriptionField) {
+    	String name = "\"" + nameField.getText() + "\"" ;
+    	String date = "\""  + dateField.getValue().toString() + "\"" ;
+    	String text = "\""  + descriptionField.getText() + "\"";
+    	
+    	String query = "INSERT INTO projectTable (NAME, CREATED, DESCRIPTION) " +
+    			"VALUES (" + name + ", " + date + ", " + text + ")";
+    	updateQuery(query);
+    }
+    
+    void getAllProjects() {
+    	String query = "SELECT * from projectTable";
+    	ResultSet records = executeQuery(query);
+    	try {
+			while (records.next()) {
+				try {
+					String name = records.getString("NAME");
+	                Date createdAt = records.getDate("CREATED");
+	                String description = records.getString("DESCRIPTION");
+	                
+	                Project project = new Project(name, createdAt, description);
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    }
+}

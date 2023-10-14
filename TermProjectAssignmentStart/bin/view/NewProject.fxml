@@ -21,7 +21,7 @@
                 <Label text="Description" />
                 <TextArea fx:id="description" promptText="Description" />
                 
-                <Hyperlink text="Create Project" onAction="#newProjectToHome"/>
+                <Hyperlink text="Create Project" onAction="#createProject"/>
             </children>
         </VBox>
     </children>

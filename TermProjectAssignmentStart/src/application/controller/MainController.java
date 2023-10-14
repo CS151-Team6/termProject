@@ -46,4 +46,9 @@ public class MainController {
     	dbController.openDatabase();
     	dbController.createTable();
     }
+    
+    public void printProjects() {
+    	DatabaseController dbController = new DatabaseController();
+    	dbController.getAllProjects();
+    }
 }

@@ -6,13 +6,17 @@ public class Project {
     private String startDate;
     private String description;
 
-    public Project(String name, String startDate, String description) {
+    public Project(int id, String name, String startDate, String description) {
+    	this.id = id;
     	this.name = name;
         this.startDate = startDate;
         this.description = description;
     }
     
 
+    public int getId() {
+    	return id;
+    }
     public String getName() {
         return name;
     }

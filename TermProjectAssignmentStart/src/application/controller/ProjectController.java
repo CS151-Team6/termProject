@@ -18,11 +18,7 @@ public class ProjectController {
     private TextArea description;
     
     @FXML
-    private void newProjectToHome(ActionEvent event) {
-    	System.out.println(name.getText());
-    	System.out.println(dateCreated.getValue().getClass());
-    	System.out.println(description.getText());
-    	
+    private void createProject(ActionEvent event) {
     	DatabaseController databaseController = new DatabaseController();
     	databaseController.insertProject(name, dateCreated, description);
     	
