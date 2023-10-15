@@ -193,9 +193,11 @@ public class DatabaseController {
 	
     
     ObservableList<String> getAllProjects() {
+    	createTable();
     	String query = "SELECT * from projectTable";
     	ResultSet records = executeQuery(query);
     	ObservableList<String> projects = FXCollections.observableArrayList();
+    	
     	if (records == null) return projects;
     	
     	// create project instances and add them to the list of project strings
