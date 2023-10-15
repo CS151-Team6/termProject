@@ -6,15 +6,20 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.HBox?>
 
-<HBox styleClass="hbox-container"  fx:controller="application.controller.MainController" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<HBox styleClass="hbox-container" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.MainController">
     <children>
 
-        <VBox prefHeight="720.0" prefWidth="1280.0" styleClass="vbox-container">
+        <VBox prefHeight="400.0" prefWidth="600.0" styleClass="vbox-container">
             <children>
-                <Text styleClass="heading" text="Homepage" />
-                <Hyperlink text="Create a New Project" onAction="#homeToNewProject"/>
-                
-                <Text styleClass="heading" text="Your Projects" />
+            <Pane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                      
+                      <Text layoutX="205.0" layoutY="174.0" styleClass="heading" text="Your Projects" />
+                      <Text layoutX="221.0" layoutY="46.0" styleClass="heading" text="Welcome" textAlignment="CENTER" />
+                      <Hyperlink layoutX="213.0" layoutY="86.0" onAction="#homeToNewProject" text="Create a New Project" />
+                  <Button layoutX="213.0" layoutY="56.0" mnemonicParsing="false" onAction="#homeToNewProject" text="Create a New Project" />
+               </children>
+            </Pane>
                 
             </children>
         </VBox>
