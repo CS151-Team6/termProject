@@ -103,4 +103,26 @@ public class DatabaseController {
             e.printStackTrace();
         }
     }
+
+    public void updateProject(Project project) {
+        String updateSQL = "UPDATE projects SET start_date = ?, description = ? WHERE name = ?";
+        try (PreparedStatement statement = connection.prepareStatement(updateSQL)) {
+            statement.setString(1, project.getStartDate());
+            statement.setString(2, project.getDescription());
+            statement.setString(3, project.getName());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteProject(String projectName) {
+        String deleteSQL = "DELETE FROM projects WHERE name = ?";
+        try (PreparedStatement statement = connection.prepareStatement(deleteSQL)) {
+            statement.setString(1, projectName);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
