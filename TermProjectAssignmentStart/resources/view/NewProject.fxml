@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.HBox?>
 
-<HBox styleClass="hbox-container"  fx:controller="application.controller.ProjectController" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<HBox styleClass="hbox-container" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.ProjectController">
     <children>
 
         <VBox prefHeight="720.0" prefWidth="1280.0" styleClass="vbox-container">
@@ -21,7 +21,7 @@
                 <Label text="Description" />
                 <TextArea fx:id="description" promptText="Description" />
                 
-                <Hyperlink text="Create Project" onAction="#newProjectToHome"/>
+                <Hyperlink onAction="#newProjectToHome" text="Create Project" />
             </children>
         </VBox>
     </children>
