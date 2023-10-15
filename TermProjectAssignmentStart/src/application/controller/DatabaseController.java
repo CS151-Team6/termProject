@@ -148,5 +148,13 @@ public class DatabaseController {
         }
     }
 
+    public void close() {
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 	
 }
