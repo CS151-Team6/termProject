@@ -91,4 +91,16 @@ public class DatabaseController {
     			"VALUES (" + name + ", " + date + ", " + text + ")";
     	updateQuery(query);
     }
+
+    public void updateComment(Comment comment) {
+        String updateSQL = "UPDATE comments SET text = ?, timeStamp = ? WHERE id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(updateSQL)) {
+            statement.setString(1, comment.getText());
+            statement.setString(2, comment.getTimeStamp());
+            statement.setInt(3, comment.getId());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
