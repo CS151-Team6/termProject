@@ -1,12 +1,17 @@
 package application.controller;
 
+import java.net.URL;
+import java.time.LocalDate;
+import java.util.ResourceBundle;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-public class ProjectController {
+public class ProjectController implements Initializable{
 
     @FXML
     private Hyperlink hyperlink;
@@ -18,16 +23,19 @@ public class ProjectController {
     private TextArea description;
     
     @FXML
-    private void newProjectToHome(ActionEvent event) {
-    	System.out.println(name.getText());
-    	System.out.println(dateCreated.getValue().getClass());
-    	System.out.println(description.getText());
-    	
+    private void createProject(ActionEvent event) {
     	DatabaseController databaseController = new DatabaseController();
     	databaseController.insertProject(name, dateCreated, description);
     	
         String link = "view/Main.fxml";
         MainController mainController = new MainController();
         mainController.redirectHelper(event, link);
+    }
+
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        // Set the default value of the DatePicker in the initialize method
+        dateCreated.setValue(LocalDate.now()); // You can set any default date you want
     }
 }

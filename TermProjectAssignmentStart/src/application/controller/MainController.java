@@ -39,11 +39,17 @@ public class MainController {
 		
         Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
         stage.getScene().setRoot(newRoot);
+        printProjects();
     }
     
     public void databaseOpenTest() {
     	DatabaseController dbController = new DatabaseController();
     	dbController.openDatabase();
     	dbController.createTable();
+    }
+    
+    public void printProjects() {
+    	DatabaseController dbController = new DatabaseController();
+    	dbController.getAllProjects();
     }
 }
