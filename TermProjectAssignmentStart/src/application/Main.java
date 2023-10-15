@@ -21,7 +21,6 @@ public class Main extends Application {
 			
 			MainController mainController = new MainController();
 			mainController.databaseOpenTest();
-			mainController.printProjects();
 			
 		} catch(Exception e) {
 			e.printStackTrace();

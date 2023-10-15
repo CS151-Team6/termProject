@@ -15,7 +15,7 @@
                 <Hyperlink text="Create a New Project" onAction="#homeToNewProject"/>
                 
                 <Text styleClass="heading" text="Your Projects" />
-                
+                <ListView fx:id="projectList" />
             </children>
         </VBox>
     </children>

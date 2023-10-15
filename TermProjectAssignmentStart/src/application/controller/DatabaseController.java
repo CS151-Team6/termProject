@@ -5,11 +5,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.sqlite.SQLiteDataSource;
 
+import application.database.Comment;
 import application.database.Project;
+import application.database.Ticket;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -117,7 +122,10 @@ public class DatabaseController {
 
     public void updateComment(Comment comment) {
         String updateSQL = "UPDATE comments SET text = ?, timeStamp = ? WHERE id = ?";
-        try (PreparedStatement statement = connection.prepareStatement(updateSQL)) {
+        SQLiteDataSource ds = getDataSource();
+        
+        try(Connection connection = ds.getConnection()) {
+        	PreparedStatement statement = connection.prepareStatement(updateSQL);
             statement.setString(1, comment.getText());
             statement.setString(2, comment.getTimeStamp());
             statement.setInt(3, comment.getId());
@@ -129,7 +137,10 @@ public class DatabaseController {
 
     public void updateProject(Project project) {
         String updateSQL = "UPDATE projects SET start_date = ?, description = ? WHERE name = ?";
-        try (PreparedStatement statement = connection.prepareStatement(updateSQL)) {
+        SQLiteDataSource ds = getDataSource();
+        
+        try(Connection connection = ds.getConnection()) {
+        	PreparedStatement statement = connection.prepareStatement(updateSQL);
             statement.setString(1, project.getStartDate());
             statement.setString(2, project.getDescription());
             statement.setString(3, project.getName());
@@ -141,7 +152,10 @@ public class DatabaseController {
 
     public void deleteProject(String projectName) {
         String deleteSQL = "DELETE FROM projects WHERE name = ?";
-        try (PreparedStatement statement = connection.prepareStatement(deleteSQL)) {
+        SQLiteDataSource ds = getDataSource();
+        
+        try(Connection connection = ds.getConnection()) {
+        	PreparedStatement statement = connection.prepareStatement(deleteSQL);
             statement.setString(1, projectName);
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -151,7 +165,10 @@ public class DatabaseController {
 
     public void updateTicket(Ticket ticket) {
         String updateSQL = "UPDATE tickets SET name = ?, description = ?, status = ? WHERE id = ?";
-        try (PreparedStatement statement = connection.prepareStatement(updateSQL)) {
+        SQLiteDataSource ds = getDataSource();
+        
+        try(Connection connection = ds.getConnection()) {
+        	PreparedStatement statement = connection.prepareStatement(updateSQL);
             statement.setString(1, ticket.getName());
             statement.setString(2, ticket.getDescription());
             statement.setInt(3, ticket.getId());
@@ -163,29 +180,25 @@ public class DatabaseController {
 
     public void deleteTicket(int ticketId) {
         String deleteSQL = "DELETE FROM tickets WHERE id = ?";
-        try (PreparedStatement statement = connection.prepareStatement(deleteSQL)) {
+        SQLiteDataSource ds = getDataSource();
+        
+        try(Connection connection = ds.getConnection()) {
+        	PreparedStatement statement = connection.prepareStatement(deleteSQL);
             statement.setInt(1, ticketId);
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-
-    public void close() {
-        try {
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
 	
     
-    void getAllProjects() {
+    ObservableList<String> getAllProjects() {
     	String query = "SELECT * from projectTable";
     	ResultSet records = executeQuery(query);
-    	if (records == null) return;
+    	ObservableList<String> projects = FXCollections.observableArrayList();
+    	if (records == null) return projects;
     	
+    	// create project instances and add them to the list of project strings
     	try {
 			while (records.next()) {
 				try {
@@ -195,6 +208,7 @@ public class DatabaseController {
 	                String description = records.getString("description");
 	                
 	                Project project = new Project(id, name, createdAt, description);
+	                projects.add(project.toString());
 	                System.out.println(project);
 				} catch (SQLException e) {
 					e.printStackTrace();
@@ -205,5 +219,7 @@ public class DatabaseController {
 			e.printStackTrace();
 		}
     	
+    	return projects;
     }
+    
 }

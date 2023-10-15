@@ -1,18 +1,25 @@
 package application.controller;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
-public class MainController {
+public class MainController implements Initializable {
 
     @FXML
     private Hyperlink hyperlink;
+    @FXML
+    private ListView<String> projectList;
 
     @FXML
     private void homeToNewProject(ActionEvent event) {
@@ -39,7 +46,6 @@ public class MainController {
 		
         Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
         stage.getScene().setRoot(newRoot);
-        printProjects();
     }
     
     public void databaseOpenTest() {
@@ -48,8 +54,14 @@ public class MainController {
     	dbController.createTable();
     }
     
-    public void printProjects() {
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		// TODO Auto-generated method stub
     	DatabaseController dbController = new DatabaseController();
-    	dbController.getAllProjects();
-    }
+    	ObservableList<String> projects = dbController.getAllProjects();
+    	System.out.println(projects);
+    	projectList.setItems(projects);
+		
+	}
 }
