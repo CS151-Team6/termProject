@@ -114,6 +114,72 @@ public class DatabaseController {
     			"VALUES (" + id + ", " + name + ", " + date + ", " + text + ")";
     	updateQuery(query);
     }
+
+    public void updateComment(Comment comment) {
+        String updateSQL = "UPDATE comments SET text = ?, timeStamp = ? WHERE id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(updateSQL)) {
+            statement.setString(1, comment.getText());
+            statement.setString(2, comment.getTimeStamp());
+            statement.setInt(3, comment.getId());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateProject(Project project) {
+        String updateSQL = "UPDATE projects SET start_date = ?, description = ? WHERE name = ?";
+        try (PreparedStatement statement = connection.prepareStatement(updateSQL)) {
+            statement.setString(1, project.getStartDate());
+            statement.setString(2, project.getDescription());
+            statement.setString(3, project.getName());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteProject(String projectName) {
+        String deleteSQL = "DELETE FROM projects WHERE name = ?";
+        try (PreparedStatement statement = connection.prepareStatement(deleteSQL)) {
+            statement.setString(1, projectName);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateTicket(Ticket ticket) {
+        String updateSQL = "UPDATE tickets SET name = ?, description = ?, status = ? WHERE id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(updateSQL)) {
+            statement.setString(1, ticket.getName());
+            statement.setString(2, ticket.getDescription());
+            statement.setInt(3, ticket.getId());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteTicket(int ticketId) {
+        String deleteSQL = "DELETE FROM tickets WHERE id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(deleteSQL)) {
+            statement.setInt(1, ticketId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void close() {
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+	
     
     void getAllProjects() {
     	String query = "SELECT * from projectTable";
