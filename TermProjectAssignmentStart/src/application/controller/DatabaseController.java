@@ -125,4 +125,28 @@ public class DatabaseController {
             e.printStackTrace();
         }
     }
+
+    public void updateTicket(Ticket ticket) {
+        String updateSQL = "UPDATE tickets SET name = ?, description = ?, status = ? WHERE id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(updateSQL)) {
+            statement.setString(1, ticket.getName());
+            statement.setString(2, ticket.getDescription());
+            statement.setInt(3, ticket.getId());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteTicket(int ticketId) {
+        String deleteSQL = "DELETE FROM tickets WHERE id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(deleteSQL)) {
+            statement.setInt(1, ticketId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+	
 }
