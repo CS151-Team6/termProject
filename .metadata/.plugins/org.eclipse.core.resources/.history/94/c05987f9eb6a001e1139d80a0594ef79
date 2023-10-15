@@ -39,7 +39,6 @@ public class MainController {
 		
         Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
         stage.getScene().setRoot(newRoot);
-        printProjects();
     }
     
     public void databaseOpenTest() {
