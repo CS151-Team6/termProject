@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.HBox?>
 
-<HBox styleClass="hbox-container" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.MainController">
+<HBox styleClass="hbox-container" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.MainController">
     <children>
       <Pane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: beige;">
          <children>
@@ -18,7 +18,7 @@
             </Text>
             <Button fx:id="button" layoutX="215.0" layoutY="77.0" mnemonicParsing="false" onAction="#homeToNewProject" text="Create a New Project" />
                 
-                      <Text layoutX="82.0" layoutY="151.0" styleClass="heading" text="Your Projects:" />
+                      <Text layoutX="82.0" layoutY="151.0" text="Your Projects:" />
          </children>
       </Pane>
     </children>
