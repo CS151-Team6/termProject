@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.HBox?>
 
-<HBox styleClass="hbox-container" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.ProjectController">
+<HBox styleClass="hbox-container" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.CreateProjectController">
     <children>
 
         <VBox prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: beige;" styleClass="vbox-container">

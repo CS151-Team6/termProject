@@ -17,8 +17,9 @@
                </font>
             </Text>
             <Button fx:id="button" layoutX="215.0" layoutY="77.0" mnemonicParsing="false" onAction="#homeToNewProject" text="Create a New Project" />
+            <Button fx:id="viewProject" onAction="#homeToViewProject" text="View Selected Project" />
                 
-                      <Text layoutX="82.0" layoutY="151.0" styleClass="heading" text="Your Projects:" />
+            <Text layoutX="82.0" layoutY="151.0" styleClass="heading" text="Your Projects:" />
          </children>
       </Pane>
     </children>

@@ -224,4 +224,8 @@ public class DatabaseController {
     	return projects;
     }
     
+    void homeToViewProject() {
+    	
+    }
+    
 }
