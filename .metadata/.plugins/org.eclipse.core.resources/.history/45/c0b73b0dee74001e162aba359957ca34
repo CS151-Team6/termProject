@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox styleClass="hbox-container" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.MainController">
+    <children>
+      <Pane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: beige;">
+         <children>
+                <ListView fx:id="projectList" layoutX="86.0" layoutY="168.0" prefHeight="203.0" prefWidth="425.0" />
+                <Text layoutX="203.0" layoutY="54.0" text="Homepage">
+               <font>
+                  <Font name="Adelle Sans Devanagari Heavy" size="32.0" />
+               </font>
+            </Text>
+            <Button fx:id="button" layoutX="215.0" layoutY="77.0" mnemonicParsing="false" onAction="#homeToNewProject" text="Create a New Project" />
+            <Button fx:id="viewProject" onAction="#homeToViewProject" text="View Selected Project" />
+                
+            <Text layoutX="82.0" layoutY="151.0" styleClass="heading" text="Your Projects:" />
+
+                      <Text layoutX="82.0" layoutY="151.0" text="Your Projects:" />
+
+         </children>
+      </Pane>
+    </children>
+</HBox>

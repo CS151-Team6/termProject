@@ -22,7 +22,6 @@ public class MainController implements Initializable {
     @FXML
     private ListView<String> projectList;
  
-
     @FXML
     private void homeToNewProject(ActionEvent event) {
         // Handle the hyperlink click event here
@@ -52,32 +51,27 @@ public class MainController implements Initializable {
         setViewProjectScene(event, id);
     }
     
+    @FXML
+    private void homeToNewTicket(ActionEvent event) {
+    	redirectHelper(event, "view/NewTicket.fxml");
+    }
+    
+    // passes id to the viewProject page
     private void setViewProjectScene(ActionEvent event, String id) {
-        String link = "view/ViewProject.fxml";
-        Parent newRoot = null;
-		try {
-			newRoot = FXMLLoader.load(getClass().getClassLoader().getResource(link));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-        
         Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
-        
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../view/viewProject.fxml")); 
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../view/ViewProject.fxml")); 
         try {
 			Parent root = fxmlLoader.load();
 			ViewProjectController vpc = fxmlLoader.getController();
-	        System.out.println("id: " + id);
-	        System.out.println("vpc: " + vpc);
 	        vpc.setProjectId(id);
 	        stage.getScene().setRoot(root);
 	        
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     }
     
+    // does not pass parameters to link
     void redirectHelper(ActionEvent event, String link) {
         Parent newRoot = null;
 		try {
@@ -93,7 +87,8 @@ public class MainController implements Initializable {
     public void databaseOpenTest() {
     	DatabaseController dbController = new DatabaseController();
     	dbController.openDatabase();
-    	dbController.createTable();
+    	dbController.createProjectTable();
+    	dbController.createTicketTable();
     }
     
 
@@ -103,6 +98,5 @@ public class MainController implements Initializable {
     	ObservableList<String> projects = dbController.getAllProjects();
     	System.out.println(projects);
     	projectList.setItems(projects);
-		
 	}
 }

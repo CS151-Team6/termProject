@@ -98,7 +98,7 @@ public class DatabaseController {
         System.out.println("Opened database successfully");
     }
     
-    void createTable() {
+    void createProjectTable() {
         String query = "CREATE TABLE IF NOT EXISTS projectTable ( " +
                 "id int AUTO_INCREMENT PRIMARY KEY, " +
         		"name string, " +
@@ -108,6 +108,16 @@ public class DatabaseController {
         updateQuery(query);
     }
     
+    void createTicketTable() {
+        String query = "CREATE TABLE IF NOT EXISTS ticketTable ( " +
+                "id int AUTO_INCREMENT PRIMARY KEY, " +
+        		"project_id int " +
+        		"name string, " +
+                "created date, " +
+                "description text)";
+        
+        updateQuery(query);
+    }
     void insertProject(TextField nameField, DatePicker dateField, TextArea descriptionField) {
     	int id = countRowsInTable(); // used to get the id since autoincrement isnt working
     	String name = "\"" + nameField.getText() + "\"" ;
@@ -193,7 +203,8 @@ public class DatabaseController {
 	
     
     ObservableList<String> getAllProjects() {
-    	createTable();
+    	createProjectTable();
+    	createTicketTable();
     	String query = "SELECT * from projectTable";
     	ResultSet records = executeQuery(query);
     	ObservableList<String> projects = FXCollections.observableArrayList();
@@ -223,9 +234,4 @@ public class DatabaseController {
     	
     	return projects;
     }
-    
-    void homeToViewProject() {
-    	
-    }
-    
 }
