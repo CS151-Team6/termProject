@@ -3,11 +3,14 @@ package application.database;
 public class Ticket {
 	private int id;
     private String name;
+    private String created;
     private String description;
 
-    public Ticket(int id, String name, String description) {
+   
+    public Ticket(int id, String name, String created, String description) {
     	this.name = name;
         this.id = id;
+        this.created = created;
         this.description = description;
     }
     
@@ -17,6 +20,10 @@ public class Ticket {
 
     public String getName() {
         return name;
+    }
+    
+    public String getCreated() {
+    	return created;
     }
 
     public void setName(String name) {
@@ -36,6 +43,7 @@ public class Ticket {
         return "Ticket{" +
                "id=" + id +
                ", name='" + name + '\'' +
+               ", name='" + created + '\'' +
                ", description='" + description + '\'' +
                '}';
     }

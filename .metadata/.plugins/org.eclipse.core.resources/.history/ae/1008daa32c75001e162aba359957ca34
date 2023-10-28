@@ -1,0 +1,42 @@
+package application.controller;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import application.database.Project;
+import javafx.application.Platform;
+import javafx.fxml.FXML;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
+
+public class ViewProjectController  {
+
+	@FXML
+	private Text title;
+	@FXML
+	private Text date;
+	@FXML
+	private Text description;
+	@FXML
+	private ListView<String> ticketList;
+	
+	@FXML
+	void setProject(String id) {
+		DatabaseController dbc = new DatabaseController();
+
+		Project project = dbc.getProject(id);
+		title.setText(project.getName());
+		date.setText(project.getStartDate());
+		description.setText(project.getDescription());
+		
+		getTickets(id);
+	}	
+	
+	@FXML
+	void getTickets(String id) {
+		DatabaseController dbc = new DatabaseController();
+		
+		
+	}
+}

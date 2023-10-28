@@ -1,0 +1,26 @@
+package application.controller;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import javafx.application.Platform;
+import javafx.fxml.FXML;
+import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
+
+public class ViewProjectController  {
+
+	private String projectId;
+	@FXML
+	private Text title;
+	
+	@FXML
+	void setProject(String id) {
+		projectId = id;
+		DatabaseController dbc = new DatabaseController();
+		
+		Project project = dbc.getProject(id);
+		System.out.println(project);
+		// title.setText("hi: " + projectId);
+	}	
+}

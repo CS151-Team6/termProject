@@ -39,16 +39,19 @@ public class MainController implements Initializable {
     
     @FXML
     private void homeToViewProject(ActionEvent event) {
-        String selectedItem = projectList.getSelectionModel().getSelectedItem();
+    	String projectString = projectList.getSelectionModel().getSelectedItem();
+        String id = getIdFromProjectString(projectString);
+        setViewProjectScene(event, id);
+    }
+    
+    String getIdFromProjectString(String projectString) {
         // badly extract the id of the project through the string (gotta be a better way but its already saturday)
         int idOffset = 3;
-        int idIndex = selectedItem.indexOf("id") + idOffset;
-        int commaIndex = selectedItem.indexOf(",");
+        int idIndex = projectString.indexOf("id") + idOffset;
+        int commaIndex = projectString.indexOf(",");
         
-        String id = selectedItem.substring(idIndex, commaIndex);
-        System.out.println(id);
-        // set scene and text of labels
-        setViewProjectScene(event, id);
+        String id = projectString.substring(idIndex, commaIndex);
+        return id;
     }
     
     @FXML
@@ -63,7 +66,7 @@ public class MainController implements Initializable {
         try {
 			Parent root = fxmlLoader.load();
 			ViewProjectController vpc = fxmlLoader.getController();
-	        vpc.setProjectId(id);
+	        vpc.setProject(id);
 	        stage.getScene().setRoot(root);
 	        
 		} catch (IOException e) {

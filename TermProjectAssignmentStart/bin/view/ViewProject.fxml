@@ -6,18 +6,19 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.HBox?>
 
-<HBox styleClass="hbox-container" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.ViewProjectController">
+<VBox styleClass="hbox-container" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.ViewProjectController">
     <children>
-      <Pane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: beige;">
-         <children>
-   				
-                <Text fx:id="title" layoutX="203.0" layoutY="54.0" text="Homepage">
-               <font>
-                  <Font name="Adelle Sans Devanagari Heavy" size="32.0" />
-               </font>
-            </Text>
-
+      <VBox prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: beige;">
+         <children>	
+        	<Label text="Project: " />
+         	<Text fx:id="title" text="Project" />
+         	<Label text="Created: " />
+			<Text fx:id="date" text="Project" />
+			<Label text="Description: " />
+			<Text fx:id="description" text="Project" />
+			
+			<ListView fx:id="ticketList" />
          </children>
-      </Pane>
+      </VBox>
     </children>
-</HBox>
+</VBox>

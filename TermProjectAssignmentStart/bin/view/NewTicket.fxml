@@ -5,20 +5,23 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.DatePicker?>
 
-<HBox styleClass="hbox-container" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.CreateTicketController">
+<VBox styleClass="hbox-container" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.CreateTicketController">
     <children>
-      <Pane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: beige;">
+      <VBox prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: beige;">
          <children>
-                <ListView fx:id="projectList" layoutX="86.0" layoutY="168.0" prefHeight="203.0" prefWidth="425.0" />
-                <Text layoutX="203.0" layoutY="54.0" text="Create a Ticket">
-                <font>
-                   <Font name="Adelle Sans Devanagari Heavy" size="32.0" />
-                </font>
-                
-            </Text>
+             <Text text="Create a Ticket" />
 
+
+             <ListView fx:id="projectList" />   
+             <Label text="Name" />
+             <TextField fx:id="name"  promptText="Project Name" />
+             <DatePicker fx:id="dateCreated" />
+             <Label text="Description" />
+             <TextArea fx:id="description" promptText="Description" />
+			 <Button onAction="#createTicket" text="Create Ticket" />
          </children>
-      </Pane>
+      </VBox>
     </children>
-</HBox>
+</VBox>
