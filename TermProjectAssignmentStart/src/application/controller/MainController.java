@@ -92,6 +92,7 @@ public class MainController implements Initializable {
     	dbController.openDatabase();
     	dbController.createProjectTable();
     	dbController.createTicketTable();
+    	dbController.createCommentTable();
     }
     
 

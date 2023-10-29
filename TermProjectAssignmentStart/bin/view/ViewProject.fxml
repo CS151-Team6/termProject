@@ -17,7 +17,11 @@
 			<Label text="Description: " />
 			<Text fx:id="description" text="Project" />
 			
-			<ListView fx:id="ticketList" />
+			<ListView fx:id="ticketList" prefHeight="68.0" prefWidth="600.0" />
+            <Button mnemonicParsing="false" onAction="#showComments" text="Show comments" />
+            <ListView fx:id="commentList" prefHeight="86.0" prefWidth="600.0" />
+            <Button mnemonicParsing="false" onAction="#viewProjectToNewComment" text="Make Comment" />
+            <Button mnemonicParsing="false" onAction="#goBack" text="Go back" />
          </children>
       </VBox>
     </children>

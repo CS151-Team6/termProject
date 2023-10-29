@@ -120,6 +120,16 @@ public class DatabaseController {
         updateQuery(query);
     }
     
+    void createCommentTable() {
+        String query = "CREATE TABLE IF NOT EXISTS commentTable ( " +
+                "id int AUTO_INCREMENT PRIMARY KEY, " +
+        		"ticket_id int, " +
+        		"created string " +
+                "description text)";
+        
+        updateQuery(query);
+    }
+    
     void insertProject(TextField nameField, DatePicker dateField, TextArea descriptionField) {
     	int id = countRowsInTable("projectTable"); // used to get the id since autoincrement isnt working
     	System.out.println("rows: " + id);
@@ -141,6 +151,15 @@ public class DatabaseController {
     	
     	String query = "INSERT INTO ticketTable (id, project_id, name, created, description) " +
     			"VALUES (" + id + ", " + projectId + ", " + name + ", " + date + ", " + text + ")";
+    	updateQuery(query);
+    }
+    
+    void insertComment(String ticketId, String timestamp, TextArea descriptionField) {
+    	int id = countRowsInTable("commentTable"); // used to get the id since autoincrement isnt working
+    	String text = "\""  + descriptionField.getText() + "\"";
+    	
+    	String query = "INSERT INTO commentTable (id, ticket_id, created, description) " +
+    			"VALUES (" + id + ", " + ticketId + ", " + timestamp + ", " + text + ")";
     	updateQuery(query);
     }
     
@@ -189,6 +208,23 @@ public class DatabaseController {
     	
     	return null;
     }
+    
+    Ticket getTicket(String id) {
+    	String query = "SELECT * from ticketTable WHERE id = " + id;
+    	ResultSet project = executeQuery(query);
+    	try {
+			int ticketId = project.getInt("id");
+			int projId = project.getInt("project_id");
+			String name = project.getString("name");
+            String createdAt = project.getString("created");
+            String description = project.getString("description");
+			
+            return new Ticket(ticketId, projId, name, createdAt, description);
+		} catch (SQLException e) { e.printStackTrace(); }
+    	
+    	return null;
+    }
+    
     public void deleteProject(String projectName) {
         String deleteSQL = "DELETE FROM projects WHERE name = ?";
         SQLiteDataSource ds = getDataSource();
@@ -276,11 +312,12 @@ public class DatabaseController {
 			while (records.next()) {
 				try {
 					int ticketId = records.getInt("id");
+					int projectId = records.getInt("project_id");
 					String name = records.getString("name");
 	                String createdAt = records.getString("created");
 	                String description = records.getString("description");
 	                
-	                Ticket project = new Ticket(ticketId, name, createdAt, description);
+	                Ticket project = new Ticket(ticketId, projectId, name, createdAt, description);
 	                tickets.add(project.toString());
 	            
 				} catch (SQLException e) {
@@ -292,5 +329,35 @@ public class DatabaseController {
 			e.printStackTrace();
 		}
     	return tickets;
+    }
+    
+    ObservableList<String> getComments(String id) {
+    	String query = "SELECT * FROM commentTable WHERE project_id = " + id;
+    	ResultSet records = executeQuery(query);
+    	ObservableList<String> comments = FXCollections.observableArrayList();
+    	
+    	if (records == null) return comments;
+    	
+    	// create project instances and add them to the list of project strings
+    	try {
+			while (records.next()) {
+				try {
+					int commentId = records.getInt("id");
+					int ticketId = records.getInt("ticket_id");
+	                String timestamp = records.getString("created");
+	                String description = records.getString("description");
+	                
+	                Comment com = new Comment(ticketId, ticketId, timestamp, description);
+	                comments.add(com.toString());
+	            
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	return comments;
     }
 }
