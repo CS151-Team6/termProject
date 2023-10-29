@@ -1,0 +1,8 @@
+package application.controller;
+
+public class CreateCommentController {
+	@FXML
+	void createComment() {
+		
+	}
+}

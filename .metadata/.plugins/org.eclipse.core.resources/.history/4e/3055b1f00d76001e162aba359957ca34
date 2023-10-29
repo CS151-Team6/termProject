@@ -1,0 +1,10 @@
+package application.controller;
+
+import javafx.fxml.FXML;
+
+public class CreateCommentController {
+	@FXML
+	void createComment() {
+		
+	}
+}

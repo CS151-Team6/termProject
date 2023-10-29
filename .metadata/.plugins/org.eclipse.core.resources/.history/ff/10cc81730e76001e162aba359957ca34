@@ -1,0 +1,28 @@
+package application.controller;
+
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.scene.control.ListView;
+
+public class CreateCommentController {
+	@FXML
+	private ListView<String> ticketList;
+	
+	@FXML
+	void createComment() {
+		
+	}
+	
+	@FXML
+	void getTickets(String id) {
+		DatabaseController dbc = new DatabaseController();
+		ObservableList<String> tickets = dbc.getTickets(id);
+		ticketList.setItems(tickets);
+		adjustTicketListHeight();
+	}
+	
+	private void adjustTicketListHeight() {
+		int ROW_HEIGHT = 24;
+		ticketList.setPrefHeight(3 * ROW_HEIGHT);
+	}
+}

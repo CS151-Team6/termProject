@@ -1,23 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="createT"/>
+		<item key="selection" value="projectId"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="projectId"/>
+			<item value="project"/>
+			<item value="projectString"/>
+			<item value="Insert into"/>
+			<item value="redirect"/>
 			<item value="createT"/>
-			<item value="cs151"/>
-			<item value="close("/>
-			<item value="countRows"/>
-			<item value="close"/>
-			<item value="exec"/>
-			<item value="executeQuer"/>
-			<item value="date"/>
+			<item value="createTicket"/>
+			<item value="createP"/>
+			<item value="createProjet"/>
+			<item value="COUNT"/>
+			<item value="select"/>
+			<item value="setProject"/>
+			<item value="countRow"/>
+			<item value="create"/>
+			<item value="insertPr"/>
 		</list>
 		<list key="replacehistory">
+			<item value=""/>
+			<item value="createProjectTable"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">

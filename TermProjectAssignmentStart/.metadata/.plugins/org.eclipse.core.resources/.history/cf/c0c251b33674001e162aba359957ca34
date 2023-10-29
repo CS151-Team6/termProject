@@ -1,0 +1,29 @@
+package application.controller;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
+
+public class ViewProjectController {
+
+	@FXML
+	private Text title;
+	private String projectId;
+	
+	@FXML
+	void initFields(String text) {
+		System.out.println(text);
+		System.out.println("NULL: " + title);
+		title.setText(text);
+	}
+	
+	void setProjectId(String id) {
+		projectId = id;
+	}
+	
+
+}

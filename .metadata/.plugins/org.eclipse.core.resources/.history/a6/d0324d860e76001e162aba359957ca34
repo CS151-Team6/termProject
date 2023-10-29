@@ -1,0 +1,44 @@
+package application.controller;
+
+import java.time.LocalDate;
+import java.util.Date;
+
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
+
+public class CreateCommentController {
+	@FXML
+	private ListView<String> ticketList;
+	@FXML
+	private TextArea description;
+	
+	
+	@FXML
+	void createComment() {
+    	DatabaseController databaseController = new DatabaseController();
+    	MainController mainController = new MainController();
+    	 
+    	String ticketString = ticketList.getSelectionModel().getSelectedItem();
+        String ticketId = mainController.getIdFromProjectString(ticketString);
+        String now = LocalDate.now().toString() + " " + LocalTime.now().toString();
+    	
+        databaseController.insertTicket(ticketId, now, description);
+        String homePage = "view/Main.fxml";
+        mainController.redirectHelper(event, homePage);
+	}
+	
+	@FXML
+	void getTickets(String id) {
+		DatabaseController dbc = new DatabaseController();
+		ObservableList<String> tickets = dbc.getTickets(id);
+		ticketList.setItems(tickets);
+		adjustTicketListHeight();
+	}
+	
+	private void adjustTicketListHeight() {
+		int ROW_HEIGHT = 24;
+		ticketList.setPrefHeight(3 * ROW_HEIGHT);
+	}
+}

@@ -40,11 +40,21 @@ public class MainController implements Initializable {
     @FXML
     private void homeToViewProject(ActionEvent event) {
     	String projectString = projectList.getSelectionModel().getSelectedItem();
-        String id = getIdFromProjectString(projectString);
+        String id = getIdFromString(projectString);
         setViewProjectScene(event, id);
     }
     
-    String getIdFromProjectString(String projectString) {
+    @FXML
+    private void homeToNewTicket(ActionEvent event) {
+    	redirectHelper(event, "view/NewTicket.fxml");
+    }
+    
+    @FXML
+    private void homeToNewComment(ActionEvent event) {
+    	redirectHelper(event, "view/NewComment.fxml");
+    }
+    
+    String getIdFromString(String projectString) {
         // badly extract the id of the project through the string (gotta be a better way but its already saturday)
         int idOffset = 3;
         int idIndex = projectString.indexOf("id") + idOffset;
@@ -52,11 +62,6 @@ public class MainController implements Initializable {
         
         String id = projectString.substring(idIndex, commaIndex);
         return id;
-    }
-    
-    @FXML
-    private void homeToNewTicket(ActionEvent event) {
-    	redirectHelper(event, "view/NewTicket.fxml");
     }
     
     // passes id to the viewProject page
@@ -92,6 +97,7 @@ public class MainController implements Initializable {
     	dbController.openDatabase();
     	dbController.createProjectTable();
     	dbController.createTicketTable();
+    	dbController.createCommentTable();
     }
     
 

@@ -17,7 +17,9 @@
 			<Label text="Description: " />
 			<Text fx:id="description" text="Project" />
 			
+			<Label text="Tickets:" />
 			<ListView fx:id="ticketList" />
+			<Button onAction="#goHome" text="Go Home" />
          </children>
       </VBox>
     </children>

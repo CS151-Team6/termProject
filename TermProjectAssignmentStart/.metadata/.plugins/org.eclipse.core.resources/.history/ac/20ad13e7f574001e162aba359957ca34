@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox styleClass="hbox-container" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.CreateTicketController">
+    <children>
+      <Pane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: beige;">
+         <children>
+             <Text layoutX="203.0" layoutY="54.0" text="Create a Ticket" />
+             <ListView fx:id="projectList" layoutX="86.0" layoutY="168.0" prefHeight="203.0" prefWidth="425.0" />   
+             <TextField fx:id="name" prefHeight="27.0" prefWidth="510.0" promptText="Project Name" />
+              <Label text="Date Created" />
+              <DatePicker fx:id="dateCreated" promptText="Select a date">
+              <Label text="Description" />
+            
+
+         </children>
+      </Pane>
+    </children>
+</HBox>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.DatePicker?>
+
+<VBox styleClass="hbox-container" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.CreateCommentController">
+    <children>
+      <VBox prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: beige;">
+         <children>
+             <Text text="Create a Comment" />
+			 <Text text="Projects" />
+			 
+             <ListView fx:id="projectList" />   
+             <DatePicker fx:id="dateCreated" />
+             <Label text="Description" />
+             <TextArea fx:id="description" promptText="Description" />
+			 <Button onAction="#createComment" text="Create Comment" />
+         </children>
+      </VBox>
+    </children>
+</VBox>

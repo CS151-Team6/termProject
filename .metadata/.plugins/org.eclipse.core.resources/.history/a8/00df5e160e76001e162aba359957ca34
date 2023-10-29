@@ -1,0 +1,14 @@
+package application.controller;
+
+import javafx.fxml.FXML;
+import javafx.scene.control.ListView;
+
+public class CreateCommentController {
+	@FXML
+	private ListView<String> projectList;
+	
+	@FXML
+	void createComment() {
+		
+	}
+}

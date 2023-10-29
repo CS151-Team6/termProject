@@ -120,6 +120,16 @@ public class DatabaseController {
         updateQuery(query);
     }
     
+    void createCommentTable() {
+        String query = "CREATE TABLE IF NOT EXISTS commentTable ( " +
+                "id int AUTO_INCREMENT PRIMARY KEY, " +
+        		"ticket_id int, " +
+        		"created string, " +
+                "description text)";
+        
+        updateQuery(query);
+    }
+    
     void insertProject(TextField nameField, DatePicker dateField, TextArea descriptionField) {
     	int id = countRowsInTable("projectTable"); // used to get the id since autoincrement isnt working
     	System.out.println("rows: " + id);
@@ -141,6 +151,17 @@ public class DatabaseController {
     	
     	String query = "INSERT INTO ticketTable (id, project_id, name, created, description) " +
     			"VALUES (" + id + ", " + projectId + ", " + name + ", " + date + ", " + text + ")";
+    	updateQuery(query);
+    }
+    
+    
+    void insertComment(String ticketId, String created, TextArea descriptionField) {
+    	int id = countRowsInTable("commentTable"); // used to get the id since autoincrement isnt working
+    	created = "\"" + created + "\"";
+    	String text = "\""  + descriptionField.getText() + "\"";
+    	
+    	String query = "INSERT INTO commentTable (id, ticket_id, created, description) " +
+    			"VALUES (" + id + ", " + ticketId + ", " + created + ", " + text + ")";
     	updateQuery(query);
     }
     
@@ -265,7 +286,14 @@ public class DatabaseController {
     
     ObservableList<String> getTickets(String id) {
     	createProjectTable(); // used in case projectTable gets deleted
-    	String query = "SELECT * FROM ticketTable WHERE project_id = " + id;
+    	String query = "";
+    	System.out.println("id length: " + id.length());
+    	if (id.length() == 0) 
+    		query = "SELECT * FROM ticketTable";
+    	else
+    		query = "SELECT * FROM ticketTable WHERE project_id = " + id;
+    	
+    	System.out.println("tICKETS: " + query);
     	ResultSet records = executeQuery(query);
     	ObservableList<String> tickets = FXCollections.observableArrayList();
     	
