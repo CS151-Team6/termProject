@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.CreateCommentController">
+   <children>
+      <Label text="Date:" />
+      <TextField fx:id="timestamp" editable="false" text="date" />
+      <Label text="Comment:" />
+      <TextArea fx:id="comment" prefHeight="200.0" prefWidth="200.0" />
+      <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white;">
+         <children>
+            <Button mnemonicParsing="false" onAction="#goBack" text="Go back" />
+            <Button mnemonicParsing="false" onAction="#newCommentToView" text="Done" />
+         </children>
+      </HBox>
+   </children>
+</VBox>
