@@ -53,7 +53,7 @@ public class ViewProjectController  {
 	
 	String getIdFromTicket(String ticket) {
 		int offset = 3;
-		int idIndex = ticket.indexOf("id");
+		int idIndex = ticket.indexOf("id") + offset;
 		int end = ticket.indexOf(",");
 		
 		return ticket.substring(idIndex, end);

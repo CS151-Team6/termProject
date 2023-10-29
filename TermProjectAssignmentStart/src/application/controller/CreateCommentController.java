@@ -65,15 +65,17 @@ public class CreateCommentController implements Initializable{
 	
 	@FXML
 	private void newCommentToView(ActionEvent event) {
-		DatabaseController dbc = new DatabaseController();
-		dbc.insertComment(ticketId, current, comment);
+		DatabaseController db = new DatabaseController();
+		String created = LocalDate.now().toString() + " " + LocalTime.now().toString();
+		db.insertComment(ticketId, created, comment);
 		Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../../view/ViewProject.fxml")); 
         try {
         	Parent root = loader.load();
         	ViewProjectController vpc = loader.getController();
-        	Ticket curr = dbc.getTicket(ticketId);
-        	vpc.setProject(String.valueOf(curr.getProjectId()));
+        	System.out.println(ticketId + ", a;sldkjf;laksjdf");
+        	Ticket current = db.getTicket(ticketId);
+        	vpc.setProject(String.valueOf(current.getProjectId()));
         	stage.getScene().setRoot(root);
         }
         catch (IOException e){

@@ -211,13 +211,13 @@ public class DatabaseController {
     
     Ticket getTicket(String id) {
     	String query = "SELECT * from ticketTable WHERE id = " + id;
-    	ResultSet project = executeQuery(query);
+    	ResultSet ticket = executeQuery(query);
     	try {
-			int ticketId = project.getInt("id");
-			int projId = project.getInt("project_id");
-			String name = project.getString("name");
-            String createdAt = project.getString("created");
-            String description = project.getString("description");
+			int ticketId = ticket.getInt("id");
+			int projId = ticket.getInt("project_id");
+			String name = ticket.getString("name");
+            String createdAt = ticket.getString("created");
+            String description = ticket.getString("description");
 			
             return new Ticket(ticketId, projId, name, createdAt, description);
 		} catch (SQLException e) { e.printStackTrace(); }
@@ -332,7 +332,7 @@ public class DatabaseController {
     }
     
     ObservableList<String> getComments(String id) {
-    	String query = "SELECT * FROM commentTable WHERE project_id = " + id;
+    	String query = "SELECT * FROM commentTable WHERE ticket_id = " + id;
     	ResultSet records = executeQuery(query);
     	ObservableList<String> comments = FXCollections.observableArrayList();
     	
@@ -347,7 +347,7 @@ public class DatabaseController {
 	                String timestamp = records.getString("created");
 	                String description = records.getString("description");
 	                
-	                Comment com = new Comment(ticketId, ticketId, timestamp, description);
+	                Comment com = new Comment(commentId, ticketId, timestamp, description);
 	                comments.add(com.toString());
 	            
 				} catch (SQLException e) {
