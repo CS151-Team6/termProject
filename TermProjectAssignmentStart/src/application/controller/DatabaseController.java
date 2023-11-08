@@ -210,6 +210,23 @@ public class DatabaseController {
     	
     	return null;
     }
+    
+    Ticket getTicket(String id) {
+    	String query = "SELECT * from ticketTable WHERE id = " + id;
+    	ResultSet ticket = executeQuery(query);
+    	try {
+    		// id, name, created, description
+			int ticketId = ticket.getInt("id");
+            String name = ticket.getString("name");
+            String created = ticket.getString("created");
+            String description = ticket.getString("description");
+			
+            return new Ticket(ticketId, name, created, description);
+		} catch (SQLException e) { e.printStackTrace(); }
+    	
+    	return null;
+    }
+    
     public void deleteProject(String projectName) {
         String deleteSQL = "DELETE FROM projects WHERE name = ?";
         SQLiteDataSource ds = getDataSource();
@@ -293,7 +310,6 @@ public class DatabaseController {
     	else
     		query = "SELECT * FROM ticketTable WHERE project_id = " + id;
     	
-    	System.out.println("tICKETS: " + query);
     	ResultSet records = executeQuery(query);
     	ObservableList<String> tickets = FXCollections.observableArrayList();
     	
@@ -320,5 +336,36 @@ public class DatabaseController {
 			e.printStackTrace();
 		}
     	return tickets;
+    }
+    
+    ObservableList<String> getComments(String id) {
+    	createTicketTable(); // used in case ticketTable gets deleted
+    	String query = "SELECT * FROM commentTable WHERE ticket_id = " + id;
+    	
+    	ResultSet records = executeQuery(query);
+    	ObservableList<String> comments = FXCollections.observableArrayList();
+    	
+    	if (records == null) return comments;
+    	
+    	// create project instances and add them to the list of project strings
+    	try {
+			while (records.next()) {
+				try {
+					int commentId = records.getInt("id");
+					String text = records.getString("description");
+	                String createdAt = records.getString("created");
+	                
+	                Comment comment = new Comment(commentId, text, createdAt);
+	                comments.add(comment.toString());
+	            
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	return comments;	
     }
 }

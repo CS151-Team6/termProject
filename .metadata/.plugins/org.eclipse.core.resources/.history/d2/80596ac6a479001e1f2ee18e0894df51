@@ -1,0 +1,69 @@
+package application.controller;
+
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+
+import application.database.Project;
+import javafx.application.Platform;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
+
+public class ViewProjectController  {
+
+	@FXML
+	private Text title;
+	@FXML
+	private Text date;
+	@FXML
+	private Text description;
+	@FXML
+	private ListView<String> ticketList;
+	
+	@FXML
+	void setProject(String id) {
+		DatabaseController dbc = new DatabaseController();
+
+		Project project = dbc.getProject(id);
+		title.setText(project.getName());
+		date.setText(project.getStartDate());
+		description.setText(project.getDescription());
+		
+		getTickets(id);
+	}	
+	
+	@FXML
+	void getTickets(String id) {
+		DatabaseController dbc = new DatabaseController();
+		ObservableList<String> tickets = dbc.getTickets(id);
+		ticketList.setItems(tickets);
+		adjustTicketListHeight();
+	}
+	
+	@FXML
+	void redirectToViewComment(ActionEvent event) {
+		MainController mc = new MainController();
+    	String ticketString = ticketList.getSelectionModel().getSelectedItem();
+        String id = mc.getIdFromString(ticketString);
+        mc.setViewScene(event, id, "../../view/ViewTicket.fxml")
+        setViewCommentScene(event, id);
+	}
+	
+	@FXMl void setViewCommentScene(ActionEvent event, String id) {
+		
+	}
+	@FXML
+	void goHome(ActionEvent event) {
+		MainController mc = new MainController();
+		mc.redirectHelper(event, "view/Main.fxml");
+	}
+	
+	private void adjustTicketListHeight() {
+		int ROW_HEIGHT = 24;
+		ticketList.setPrefHeight(3 * ROW_HEIGHT);
+	}
+}

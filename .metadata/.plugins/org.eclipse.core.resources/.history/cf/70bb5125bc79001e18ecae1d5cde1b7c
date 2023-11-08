@@ -1,0 +1,15 @@
+package application.controller;
+import application.database.Project;
+import javafx.fxml.FXML;
+import javafx.scene.control.ListView;
+
+public class ViewTicketController {
+	@FXML
+	ListView<String> commentList;
+	@FXML
+	void setTicket(String id) {
+		DatabaseController dbc = new DatabaseController();
+		System.out.println("View ticket Controller received id: " + id);
+		commentList.setItems(dbc.getComments(id));
+	}
+}

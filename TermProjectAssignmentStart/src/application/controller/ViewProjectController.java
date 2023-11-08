@@ -1,5 +1,6 @@
 package application.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -9,9 +10,13 @@ import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class ViewProjectController  {
 
@@ -44,6 +49,28 @@ public class ViewProjectController  {
 		adjustTicketListHeight();
 	}
 	
+	@FXML
+	void redirectToViewComment(ActionEvent event) {
+		MainController mc = new MainController();
+    	String ticketString = ticketList.getSelectionModel().getSelectedItem();
+        String id = mc.getIdFromString(ticketString);
+        setViewCommentScene(event, id);
+	}
+
+	
+	private void setViewCommentScene(ActionEvent event, String id) {
+        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../view/ViewTicket.fxml")); 
+        try {
+			Parent root = fxmlLoader.load();
+			ViewTicketController vtc = fxmlLoader.getController();
+	        vtc.setTicket(id);
+	        stage.getScene().setRoot(root);
+	        
+		} catch (IOException e) {
+			e.printStackTrace();
+		}	
+	}
 	@FXML
 	void goHome(ActionEvent event) {
 		MainController mc = new MainController();
