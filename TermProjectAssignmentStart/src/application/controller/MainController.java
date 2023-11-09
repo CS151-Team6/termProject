@@ -22,8 +22,13 @@ public class MainController implements Initializable {
     private Hyperlink hyperlink;
     @FXML
     private ListView<String> projectList;
+<<<<<<< HEAD
 	@FXML
 	private TextField searchBar;
+=======
+    @FXML
+    private TextField keyword;
+>>>>>>> 7f6197c44f8aef67c4ba6cd7cef95da43f4aff62
  
     @FXML
     private void homeToNewProject(ActionEvent event) {
@@ -121,6 +126,18 @@ public class MainController implements Initializable {
     	dbController.createProjectTable();
     	dbController.createTicketTable();
     	dbController.createCommentTable();
+    }
+    
+    //search for project
+    @FXML
+    public void searchProject(ActionEvent event) {
+    	DatabaseController dbc = new DatabaseController();
+    	if (keyword.getText() == null) {
+    		projectList.setItems(dbc.getAllProjects());
+    	} else {
+    		projectList.setItems(dbc.getProjectWithKeyword(keyword.getText()));
+    	}
+    	
     }
     
 

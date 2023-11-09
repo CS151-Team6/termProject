@@ -1,5 +1,4 @@
 INDEX VERSION 1.134+C:\Users\arthu\Desktop\gui\.metadata\.plugins\org.eclipse.jdt.core
-1937920961.index
 1759976019.index
 2883932753.index
 1865797976.index

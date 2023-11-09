@@ -301,6 +301,36 @@ public class DatabaseController {
     	return projects;
     }
     
+    public ObservableList<String> getProjectWithKeyword(String key) {
+    	String query = "SELECT * from projectTable";
+    	ResultSet records = executeQuery(query);
+    	ObservableList<String> projects = FXCollections.observableArrayList();
+    	
+    	if (records != null) {
+    		try {
+    			while (records.next()) {
+    				try {
+    					String desc = records.getString("description");
+    					if (desc.contains(key)) {
+    						int id = records.getInt("id");
+    						String name = records.getString("name");
+    		                String createdAt = records.getString("created");
+    		                
+    		                Project p = new Project(id, name, createdAt, desc);
+    		                projects.add(p.toString());
+    					}
+    				} catch (SQLException e) {
+    					e.printStackTrace();
+    				}
+    			}
+    		} catch (SQLException e) {
+    			e.printStackTrace();
+    		}
+    	}
+    	
+    	return projects;
+    }
+    
     ObservableList<String> getTickets(String id) {
     	createProjectTable(); // used in case projectTable gets deleted
     	String query = "";
