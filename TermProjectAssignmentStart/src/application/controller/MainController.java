@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class MainController implements Initializable {
@@ -21,6 +22,8 @@ public class MainController implements Initializable {
     private Hyperlink hyperlink;
     @FXML
     private ListView<String> projectList;
+	@FXML
+	private TextField searchBar;
  
     @FXML
     private void homeToNewProject(ActionEvent event) {
@@ -54,6 +57,26 @@ public class MainController implements Initializable {
     	redirectHelper(event, "view/NewComment.fxml");
     }
     
+    
+	@FXML
+	void homeToViewSearchResults(ActionEvent event) {
+		DatabaseController dbc = new DatabaseController();
+        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../view/ViewSearchResults.fxml")); 
+        try {
+			Parent root = fxmlLoader.load();
+			ViewSearchResultsController vsrc = fxmlLoader.getController();
+	        stage.getScene().setRoot(root);
+	        
+	        
+	        vsrc.setProjectList(dbc.searchProjects(searchBar.getText()));
+	        vsrc.setTicketList(dbc.searchTickets(searchBar.getText()));
+	        
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
     String getIdFromString(String projectString) {
         // badly extract the id of the project through the string (gotta be a better way but its already saturday)
         int idOffset = 3;

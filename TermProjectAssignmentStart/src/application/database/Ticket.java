@@ -43,7 +43,7 @@ public class Ticket {
         return "Ticket{" +
                "id=" + id +
                ", name='" + name + '\'' +
-               ", name='" + created + '\'' +
+               ", created='" + created + '\'' +
                ", description='" + description + '\'' +
                '}';
     }

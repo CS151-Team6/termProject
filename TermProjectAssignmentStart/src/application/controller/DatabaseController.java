@@ -368,4 +368,29 @@ public class DatabaseController {
 		}
     	return comments;	
     }
+    
+    ObservableList<String> searchProjects(String query) {
+    	// filter out all projects that do not contain query in their description or name
+    	ObservableList<String> projectList = getAllProjects();
+    	ObservableList<String> validProjects = FXCollections.observableArrayList();
+    	
+    	for (String projectString : projectList) {
+    		if (projectString.contains(query)) 
+    			validProjects.add(projectString);
+    	}
+    	
+    	return validProjects;
+    }
+    
+    ObservableList<String> searchTickets(String query) {
+    	// filter out all tickets that do not contain query in their description or name
+    	ObservableList<String> ticketList = getTickets("");
+    	ObservableList<String> validTickets = FXCollections.observableArrayList();
+    	for (String ticketString : ticketList) {
+    		if (ticketString.contains(query)) 
+    			validTickets.add(ticketString);
+    	}
+    	
+    	return validTickets;
+    }  
 }
