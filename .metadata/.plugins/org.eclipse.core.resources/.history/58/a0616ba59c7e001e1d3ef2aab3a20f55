@@ -22,6 +22,8 @@ public class MainController implements Initializable {
     private Hyperlink hyperlink;
     @FXML
     private ListView<String> projectList;
+	@FXML
+	private TextField searchBar;
     @FXML
     private TextField keyword;
  

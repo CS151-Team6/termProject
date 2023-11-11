@@ -36,6 +36,10 @@ public class CreateCommentController implements Initializable {
         mainController.redirectHelper(event, homePage);
 	}
 	
+	@FXML
+	void commentToMain(ActionEvent event) {
+		//TODO: write the code to take the user back to the main page(for now)
+	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {

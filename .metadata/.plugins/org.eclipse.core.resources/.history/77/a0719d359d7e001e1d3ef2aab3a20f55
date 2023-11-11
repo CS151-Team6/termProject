@@ -217,12 +217,11 @@ public class DatabaseController {
     	try {
     		// id, name, created, description
 			int ticketId = ticket.getInt("id");
-			String projId = ticket.getString("project_id");
             String name = ticket.getString("name");
             String created = ticket.getString("created");
             String description = ticket.getString("description");
 			
-            return new Ticket(ticketId, projId, name, created, description);
+            return new Ticket(ticketId, name, created, description);
 		} catch (SQLException e) { e.printStackTrace(); }
     	
     	return null;
@@ -351,12 +350,11 @@ public class DatabaseController {
 			while (records.next()) {
 				try {
 					int ticketId = records.getInt("id");
-					String projId = records.getString("project_id");
 					String name = records.getString("name");
 	                String createdAt = records.getString("created");
 	                String description = records.getString("description");
 	                
-	                Ticket project = new Ticket(ticketId, projId, name, createdAt, description);
+	                Ticket project = new Ticket(ticketId, name, createdAt, description);
 	                tickets.add(project.toString());
 	            
 				} catch (SQLException e) {
@@ -367,37 +365,6 @@ public class DatabaseController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-    	return tickets;
-    }
-    
-    //stores Ticket instead of String
-    ObservableList<String> getTicketsWithKeyword(String id, String key) {
-    	String query = "SELECT * FROM ticketTable";
-    	ResultSet records = executeQuery(query);
-    	ObservableList<String> tickets = FXCollections.observableArrayList();
-    	
-    	if (records != null) {
-    		try {
-    			while (records.next()) {
-    				try {
-    					String projId = records.getString("project_id");
-    					String desc = records.getString("description");
-    					if (desc.contains(key) && projId.equals(id)) {
-    						int ticketId = records.getInt("id");
-    						String name = records.getString("name");
-    						String createdAt = records.getString("created");
-    						Ticket ticket = new Ticket(ticketId, projId, name, createdAt, desc);
-    						tickets.add(ticket.toString());
-    					}
-    				} catch (SQLException e) {
-    					e.printStackTrace();
-    				}
-    			}
-    		} catch (SQLException e) {
-    			e.printStackTrace();
-    		}
-    	}
-    	
     	return tickets;
     }
     

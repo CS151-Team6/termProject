@@ -28,11 +28,16 @@ public class ViewProjectController  {
 	private Text description;
 	@FXML
 	private ListView<String> ticketList;
+	@FXML
+	private TextField keyword;
+	
+	private String projId;
 	
 	@FXML
 	void setProject(String id) {
 		DatabaseController dbc = new DatabaseController();
-
+		projId = id;
+		System.out.println(projId);
 		Project project = dbc.getProject(id);
 		title.setText(project.getName());
 		date.setText(project.getStartDate());
@@ -55,6 +60,16 @@ public class ViewProjectController  {
     	String ticketString = ticketList.getSelectionModel().getSelectedItem();
         String id = mc.getIdFromString(ticketString);
         setViewCommentScene(event, id);
+	}
+	
+	@FXML
+	void searchTicket(ActionEvent event) {
+		DatabaseController dbc = new DatabaseController();
+		if (keyword.getText() == null) {
+    		ticketList.setItems(dbc.getTickets(projId));
+    	} else {
+    		ticketList.setItems(dbc.getTicketsWithKeyword(projId, keyword.getText()));
+    	}
 	}
 
 	
