@@ -19,6 +19,10 @@ public class CreateCommentController implements Initializable {
 	@FXML
 	private TextArea description;
 	
+	private String ticketId;
+	
+	private String projId;
+	
 	
 	@FXML
 	void createComment(ActionEvent event) {
@@ -39,6 +43,8 @@ public class CreateCommentController implements Initializable {
 	@FXML
 	void commentToView(ActionEvent event) {
 		//TODO: write the code to take the user back to the main page(for now)
+		MainController mc = new MainController();
+		mc.redirectHelper(event, "view/Main.fxml");
 	}
 
 	@Override
@@ -53,4 +59,9 @@ public class CreateCommentController implements Initializable {
 		int ROW_HEIGHT = 24;
 		ticketList.setPrefHeight(3 * ROW_HEIGHT);
 	}
+	
+	public void setProjectId(String proj) {
+		projId = proj;
+	}
+
 }

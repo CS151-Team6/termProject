@@ -33,7 +33,7 @@ public class ViewProjectController  {
 	
 	private String projId;
 	
-	@FXML
+	
 	void setProject(String id) {
 		DatabaseController dbc = new DatabaseController();
 		projId = id;
@@ -46,7 +46,7 @@ public class ViewProjectController  {
 		getTickets(id);
 	}	
 	
-	@FXML
+	
 	void getTickets(String id) {
 		DatabaseController dbc = new DatabaseController();
 		ObservableList<String> tickets = dbc.getTickets(id);

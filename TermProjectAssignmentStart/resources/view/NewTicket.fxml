@@ -16,8 +16,7 @@
 
              <ListView fx:id="projectList" />   
              <Label text="Name" />
-             <TextField fx:id="name"  promptText="Project Name" />
-             <DatePicker fx:id="dateCreated" />
+             <TextField fx:id="name" promptText="Project Name" />
              <Label text="Description" />
              <TextArea fx:id="description" promptText="Description" />
 			 <Button onAction="#createTicket" text="Create Ticket" />

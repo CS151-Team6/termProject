@@ -114,7 +114,6 @@ public class DatabaseController {
                 "id int AUTO_INCREMENT PRIMARY KEY, " +
         		"project_id int, " +
         		"name string, " +
-                "created date, " +
                 "description text)";
         
         updateQuery(query);
@@ -143,14 +142,13 @@ public class DatabaseController {
     	updateQuery(query);
     }
     
-    void insertTicket(String projectId, TextField nameField, DatePicker dateField, TextArea descriptionField) {
+    void insertTicket(String projectId, TextField nameField, TextArea descriptionField) {
     	int id = countRowsInTable("ticketTable"); // used to get the id since autoincrement isnt working
     	String name = "\"" + nameField.getText() + "\"" ;
-    	String date = "\""  + dateField.getValue().toString() + "\"" ;
     	String text = "\""  + descriptionField.getText() + "\"";
     	
-    	String query = "INSERT INTO ticketTable (id, project_id, name, created, description) " +
-    			"VALUES (" + id + ", " + projectId + ", " + name + ", " + date + ", " + text + ")";
+    	String query = "INSERT INTO ticketTable (id, project_id, name, description) " +
+    			"VALUES (" + id + ", " + projectId + ", " + name + ", " + text + ")";
     	updateQuery(query);
     }
     
@@ -219,10 +217,9 @@ public class DatabaseController {
 			int ticketId = ticket.getInt("id");
 			String projId = ticket.getString("project_id");
             String name = ticket.getString("name");
-            String created = ticket.getString("created");
             String description = ticket.getString("description");
 			
-            return new Ticket(ticketId, projId, name, created, description);
+            return new Ticket(ticketId, projId, name, description);
 		} catch (SQLException e) { e.printStackTrace(); }
     	
     	return null;
@@ -311,10 +308,10 @@ public class DatabaseController {
     		try {
     			while (records.next()) {
     				try {
-    					String desc = records.getString("description");
-    					if (desc.toLowerCase().contains(key)) {
+    					String name = records.getString("name");
+    					if (name.toLowerCase().contains(key)) {
     						int id = records.getInt("id");
-    						String name = records.getString("name");
+    						String desc = records.getString("description");
     		                String createdAt = records.getString("created");
     		                
     		                Project p = new Project(id, name, createdAt, desc);
@@ -353,10 +350,9 @@ public class DatabaseController {
 					int ticketId = records.getInt("id");
 					String projId = records.getString("project_id");
 					String name = records.getString("name");
-	                String createdAt = records.getString("created");
 	                String description = records.getString("description");
 	                
-	                Ticket project = new Ticket(ticketId, projId, name, createdAt, description);
+	                Ticket project = new Ticket(ticketId, projId, name, description);
 	                tickets.add(project.toString());
 	            
 				} catch (SQLException e) {
@@ -381,12 +377,11 @@ public class DatabaseController {
     			while (records.next()) {
     				try {
     					String projId = records.getString("project_id");
-    					String desc = records.getString("description");
-    					if (desc.toLowerCase().contains(key) && projId.equals(id)) {
+    					String title = records.getString("name");
+    					if (title.toLowerCase().contains(key) && projId.equals(id)) {
     						int ticketId = records.getInt("id");
-    						String name = records.getString("name");
-    						String createdAt = records.getString("created");
-    						Ticket ticket = new Ticket(ticketId, projId, name, createdAt, desc);
+    						String desc = records.getString("description");
+    						Ticket ticket = new Ticket(ticketId, projId, title, desc);
     						tickets.add(ticket.toString());
     					}
     				} catch (SQLException e) {
@@ -431,4 +426,5 @@ public class DatabaseController {
 		}
     	return comments;	
     }
+    
 }

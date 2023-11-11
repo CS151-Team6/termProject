@@ -4,14 +4,12 @@ public class Ticket {
 	private int id;
 	private String projId;
     private String name;
-    private String created;
     private String description;
 
    
-    public Ticket(int id, String projId, String name, String created, String description) {
+    public Ticket(int id, String projId, String name, String description) {
     	this.name = name;
         this.id = id;
-        this.created = created;
         this.description = description;
         this.projId = projId;
     }
@@ -32,9 +30,6 @@ public class Ticket {
         return name;
     }
     
-    public String getCreated() {
-    	return created;
-    }
 
     public void setName(String name) {
         this.name = name;
@@ -53,7 +48,6 @@ public class Ticket {
         return "Ticket{" +
                "id=" + id +
                ", name='" + name + '\'' +
-               ", name='" + created + '\'' +
                ", description='" + description + '\'' +
                '}';
     }

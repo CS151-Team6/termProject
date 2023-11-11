@@ -29,7 +29,7 @@ public class CreateTicketController implements Initializable {
     	String projectString = projectList.getSelectionModel().getSelectedItem();
         String projectId = mainController.getIdFromString(projectString);
     	
-        databaseController.insertTicket(projectId, name, dateCreated, description);
+        databaseController.insertTicket(projectId, name, description);
         String homePage = "view/Main.fxml";
         mainController.redirectHelper(event, homePage);
 	}
