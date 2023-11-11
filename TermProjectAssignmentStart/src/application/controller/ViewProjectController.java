@@ -68,7 +68,7 @@ public class ViewProjectController  {
 		if (keyword.getText() == null) {
     		ticketList.setItems(dbc.getTickets(projId));
     	} else {
-    		ticketList.setItems(dbc.getTicketsWithKeyword(projId, keyword.getText()));
+    		ticketList.setItems(dbc.getTicketsWithKeyword(projId, keyword.getText().toLowerCase()));
     	}
 	}
 

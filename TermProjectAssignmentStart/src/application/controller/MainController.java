@@ -119,7 +119,7 @@ public class MainController implements Initializable {
     	if (keyword.getText() == null) {
     		projectList.setItems(dbc.getAllProjects());
     	} else {
-    		projectList.setItems(dbc.getProjectWithKeyword(keyword.getText()));
+    		projectList.setItems(dbc.getProjectWithKeyword(keyword.getText().toLowerCase()));
     	}
     	
     }

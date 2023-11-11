@@ -312,7 +312,7 @@ public class DatabaseController {
     			while (records.next()) {
     				try {
     					String desc = records.getString("description");
-    					if (desc.contains(key)) {
+    					if (desc.toLowerCase().contains(key)) {
     						int id = records.getInt("id");
     						String name = records.getString("name");
     		                String createdAt = records.getString("created");
@@ -382,7 +382,7 @@ public class DatabaseController {
     				try {
     					String projId = records.getString("project_id");
     					String desc = records.getString("description");
-    					if (desc.contains(key) && projId.equals(id)) {
+    					if (desc.toLowerCase().contains(key) && projId.equals(id)) {
     						int ticketId = records.getInt("id");
     						String name = records.getString("name");
     						String createdAt = records.getString("created");

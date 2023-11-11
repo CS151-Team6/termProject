@@ -18,7 +18,8 @@
 			<Text fx:id="description" text="Project" />
 			
 			<Label text="Comments:" />
-			<ListView fx:id="commentList" />
+			<ListView fx:id="commentList" prefHeight="154.0" prefWidth="564.0" />
+            <Button mnemonicParsing="false" onAction="#ticketToViewProject" text="Return" />
 
          </children>
       </VBox>
