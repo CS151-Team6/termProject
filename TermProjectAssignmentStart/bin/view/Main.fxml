@@ -19,7 +19,7 @@
             </Text>
             <Button fx:id="button" layoutX="62.0" layoutY="74.0" mnemonicParsing="false" onAction="#homeToNewProject" text="Create a New Project" />
             <Button fx:id="button" layoutX="225.0" layoutY="74.0" mnemonicParsing="false" onAction="#homeToNewTicket" text="Create a New Ticket" />
-            <Button fx:id="button" layoutX="381.0" layoutY="74.0" mnemonicParsing="false" onAction="#homeToNewComment" text="Create a New Comment" />
+            <Button layoutX="381.0" layoutY="74.0" mnemonicParsing="false" onAction="#homeToNewComment" text="Create a New Comment" />
             <Button fx:id="viewProject" layoutX="437.0" layoutY="405.0" onAction="#homeToViewProject" text="View Selected Project" />
             
             <Text layoutX="43.0" layoutY="179.0" styleClass="heading" text="Your Projects:" />

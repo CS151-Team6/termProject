@@ -54,7 +54,16 @@ public class MainController implements Initializable {
     
     @FXML
     private void homeToNewComment(ActionEvent event) {
-    	redirectHelper(event, "view/NewComment.fxml");
+    	String link = "view/NewComment.fxml";
+        Parent newRoot = null;
+		try {
+			newRoot = FXMLLoader.load(getClass().getClassLoader().getResource(link));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+        stage.getScene().setRoot(newRoot);
     }
     
     String getIdFromString(String projectString) {

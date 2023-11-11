@@ -37,7 +37,7 @@ public class CreateCommentController implements Initializable {
 	}
 	
 	@FXML
-	void commentToMain(ActionEvent event) {
+	void commentToView(ActionEvent event) {
 		//TODO: write the code to take the user back to the main page(for now)
 	}
 
