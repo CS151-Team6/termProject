@@ -66,6 +66,32 @@ public class MainController implements Initializable {
         stage.getScene().setRoot(newRoot);
     }
     
+    @FXML
+    private void deleteSelectedProject(ActionEvent event) {
+        String projectString = projectList.getSelectionModel().getSelectedItem();
+
+        if (projectString != null) {
+            String id = getIdFromString(projectString);
+            deleteProject(id);
+        }
+    }
+
+    private void deleteProject(String id) {
+        // Implement the logic to delete the project with the given ID from the database
+        DatabaseController dbController = new DatabaseController();
+        dbController.deleteProjectById(id);
+
+        // Refresh the project list after deletion
+        refreshProjectList();
+    }
+
+    private void refreshProjectList() {
+        DatabaseController dbController = new DatabaseController();
+        ObservableList<String> projects = dbController.getAllProjects();
+        projectList.setItems(projects);
+    }
+
+    
     String getIdFromString(String projectString) {
         // badly extract the id of the project through the string (gotta be a better way but its already saturday)
         int idOffset = 3;
