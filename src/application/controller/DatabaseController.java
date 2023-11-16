@@ -47,7 +47,6 @@ public class DatabaseController {
 			e.printStackTrace();
 			return -1;
 		}
-		
 	}
 	
 	// used for SELECT
@@ -179,19 +178,16 @@ public class DatabaseController {
         }
     }
 
-    public void updateProject(Project project) {
-        String updateSQL = "UPDATE projects SET start_date = ?, description = ? WHERE name = ?";
-        SQLiteDataSource ds = getDataSource();
-        
-        try(Connection connection = ds.getConnection()) {
-        	PreparedStatement statement = connection.prepareStatement(updateSQL);
-            statement.setString(1, project.getStartDate());
-            statement.setString(2, project.getDescription());
-            statement.setString(3, project.getName());
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public void editProject(String projectId, String name, String dateCreated, String description) {
+    	
+        String updateSQL = "UPDATE projectTable SET name = " +
+        		"\"" + name + "\"" + ", " +
+        		"created = " + "\"" +  dateCreated + "\"" + ", " + 
+        		"description = " + "\"" +  description + "\"" + 
+        		" WHERE id=" + projectId;
+        		
+        System.out.println(updateSQL);
+        updateQuery(updateSQL);
     }
     
     public void deleteProjectById(String projectId) {

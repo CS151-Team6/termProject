@@ -84,6 +84,12 @@ public class MainController implements Initializable {
         // Refresh the project list after deletion
         refreshProjectList();
     }
+    @FXML
+    private void editSelectedProject(ActionEvent event) {
+    	String projectString = projectList.getSelectionModel().getSelectedItem();
+        String id = getIdFromString(projectString);
+        setEditProjectScene(event, id);
+    }
 
     private void refreshProjectList() {
         DatabaseController dbController = new DatabaseController();
@@ -110,6 +116,20 @@ public class MainController implements Initializable {
 			Parent root = fxmlLoader.load();
 			ViewProjectController vpc = fxmlLoader.getController();
 	        vpc.setProject(id);
+	        stage.getScene().setRoot(root);
+	        
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
+    
+    private void setEditProjectScene(ActionEvent event, String id) {
+        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../view/EditProject.fxml")); 
+        try {
+			Parent root = fxmlLoader.load();
+			EditProjectController epc = fxmlLoader.getController();
+	        epc.setProject(id);
 	        stage.getScene().setRoot(root);
 	        
 		} catch (IOException e) {
