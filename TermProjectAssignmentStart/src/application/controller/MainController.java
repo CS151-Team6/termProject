@@ -54,28 +54,17 @@ public class MainController implements Initializable {
     
     @FXML
     private void homeToNewComment(ActionEvent event) {
-    	redirectHelper(event, "view/NewComment.fxml");
-    }
-    
-    
-	@FXML
-	void homeToViewSearchResults(ActionEvent event) {
-		DatabaseController dbc = new DatabaseController();
-        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../view/ViewSearchResults.fxml")); 
-        try {
-			Parent root = fxmlLoader.load();
-			ViewSearchResultsController vsrc = fxmlLoader.getController();
-	        stage.getScene().setRoot(root);
-	        
-	        
-	        vsrc.setProjectList(dbc.searchProjects(searchBar.getText()));
-	        vsrc.setTicketList(dbc.searchTickets(searchBar.getText()));
-	        
+    	String link = "view/NewComment.fxml";
+        Parent newRoot = null;
+		try {
+			newRoot = FXMLLoader.load(getClass().getClassLoader().getResource(link));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
+		
+        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+        stage.getScene().setRoot(newRoot);
+    }
 	
     String getIdFromString(String projectString) {
         // badly extract the id of the project through the string (gotta be a better way but its already saturday)
@@ -130,7 +119,7 @@ public class MainController implements Initializable {
     	if (keyword.getText() == null) {
     		projectList.setItems(dbc.getAllProjects());
     	} else {
-    		projectList.setItems(dbc.getProjectWithKeyword(keyword.getText()));
+    		projectList.setItems(dbc.getProjectWithKeyword(keyword.getText().toLowerCase()));
     	}
     	
     }
