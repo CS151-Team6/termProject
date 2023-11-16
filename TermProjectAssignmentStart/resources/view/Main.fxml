@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.web.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<HBox styleClass="hbox-container" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.MainController">
+<HBox styleClass="hbox-container" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.MainController">
     <children>
       <Pane prefHeight="565.0" prefWidth="615.0" style="-fx-background-color: beige;">
          <children>
@@ -21,6 +22,8 @@
             <Button fx:id="button" layoutX="225.0" layoutY="74.0" mnemonicParsing="false" onAction="#homeToNewTicket" text="Create a New Ticket" />
             <Button layoutX="381.0" layoutY="74.0" mnemonicParsing="false" onAction="#homeToNewComment" text="Create a New Comment" />
             <Button fx:id="viewProject" layoutX="437.0" layoutY="405.0" onAction="#homeToViewProject" text="View Selected Project" />
+            <Button fx:id="deleteProjectButton" layoutX="433.0" layoutY="431.0" onAction="#deleteSelectedProject" text="Delete Selected Project" />
+            
             
             <Text layoutX="43.0" layoutY="179.0" styleClass="heading" text="Your Projects:" />
             <TextField fx:id="keyword" layoutX="209.0" layoutY="155.0" prefHeight="27.0" prefWidth="304.0" promptText="Enter keyword to serach project" />

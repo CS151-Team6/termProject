@@ -192,6 +192,19 @@ public class DatabaseController {
             e.printStackTrace();
         }
     }
+    
+    public void deleteProjectById(String projectId) {
+        String deleteSQL = "DELETE FROM projectTable WHERE id = ?";
+        SQLiteDataSource ds = getDataSource();
+
+        try (Connection connection = ds.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(deleteSQL);
+            statement.setString(1, projectId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     // take an sql query that asks for a project and return a java object representing project
     Project getProject(String id) {
@@ -225,18 +238,18 @@ public class DatabaseController {
     	return null;
     }
     
-    public void deleteProject(String projectName) {
-        String deleteSQL = "DELETE FROM projects WHERE name = ?";
-        SQLiteDataSource ds = getDataSource();
+    // public void deleteProject(String projectName) {
+    //     String deleteSQL = "DELETE FROM projects WHERE name = ?";
+    //     SQLiteDataSource ds = getDataSource();
         
-        try(Connection connection = ds.getConnection()) {
-        	PreparedStatement statement = connection.prepareStatement(deleteSQL);
-            statement.setString(1, projectName);
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+    //     try(Connection connection = ds.getConnection()) {
+    //     	PreparedStatement statement = connection.prepareStatement(deleteSQL);
+    //         statement.setString(1, projectName);
+    //         statement.executeUpdate();
+    //     } catch (SQLException e) {
+    //         e.printStackTrace();
+    //     }
+    // }
 
     public void updateTicket(Ticket ticket) {
         String updateSQL = "UPDATE tickets SET name = ?, description = ?, status = ? WHERE id = ?";
