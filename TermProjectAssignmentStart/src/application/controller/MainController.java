@@ -77,7 +77,7 @@ public class MainController implements Initializable {
     }
 
     private void deleteProject(String id) {
-        // Implement the logic to delete the project with the given ID from the database
+        // I just realized i could have used name instead of id so some code may be redundant in databaseController
         DatabaseController dbController = new DatabaseController();
         dbController.deleteProjectById(id);
 
