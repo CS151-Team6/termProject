@@ -39,7 +39,7 @@
 	</section>
 	<section name="org.eclipse.ltk.ui.refactoring.settings">
 		<item key="renameSubpackages" value="false"/>
-		<item key="updateTextualMatches" value="true"/>
+		<item key="updateTextualMatches" value="false"/>
 		<item key="updateQualifiedNames" value="false"/>
 		<item key="patterns" value="*"/>
 		<item key="updateSimilarElements" value="false"/>
