@@ -69,7 +69,7 @@ public class DatabaseController {
 	}
 	
 	private int countRowsInTable(String tableName) {
-		String query = "SELECT * FROM projectTable ORDER BY id DESC LIMIT 1;";
+		String query = "SELECT * FROM " + tableName + " ORDER BY id DESC LIMIT 1;";
 		SQLiteDataSource ds = getDataSource();
 		ResultSet resultSet;
 		
@@ -77,13 +77,14 @@ public class DatabaseController {
 	        Connection connection = ds.getConnection();
 	        PreparedStatement preparedStatement = connection.prepareStatement(query);
 	        resultSet = preparedStatement.executeQuery();
+	        if (resultSet.isClosed()) return 0; // results are closed for empty tables
 	        int rowCount = resultSet.getInt("id") + 1;
-	        
 	        connection.close();
 	        return rowCount;
+	        
 		} catch(Exception e) {
 			e.printStackTrace();
-			return -1;
+			return -1; 
 		}
 	}
 	
@@ -195,6 +196,20 @@ public class DatabaseController {
     
     public void deleteProjectById(String projectId) {
         String deleteSQL = "DELETE FROM projectTable WHERE id = ?";
+        SQLiteDataSource ds = getDataSource();
+        deleteTicketsOfProject(projectId);
+
+        try (Connection connection = ds.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(deleteSQL);
+            statement.setString(1, projectId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    void deleteTicketsOfProject(String projectId) {
+        String deleteSQL = "DELETE FROM ticketTable WHERE project_id = ?";
         SQLiteDataSource ds = getDataSource();
 
         try (Connection connection = ds.getConnection()) {
