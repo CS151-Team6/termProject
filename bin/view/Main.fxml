@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<HBox styleClass="hbox-container" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.MainController">
+    <children>
+      <Pane prefHeight="565.0" prefWidth="615.0" style="-fx-background-color: beige;">
+         <children>
+                <ListView fx:id="projectList" layoutX="89.0" layoutY="192.0" prefHeight="203.0" prefWidth="425.0" />
+                <Text layoutX="53.0" layoutY="54.0" text="View a Project to see its Tickets">
+               <font>
+                  <Font name="Adelle Sans Devanagari Heavy" size="32.0" />
+               </font>
+            </Text>
+            <Button fx:id="button" layoutX="62.0" layoutY="74.0" mnemonicParsing="false" onAction="#homeToNewProject" text="Create a New Project" />
+            <Button fx:id="button" layoutX="225.0" layoutY="74.0" mnemonicParsing="false" onAction="#homeToNewTicket" text="Create a New Ticket" />
+            <Button layoutX="381.0" layoutY="74.0" mnemonicParsing="false" onAction="#homeToNewComment" text="Create a New Comment" />
+            <Button fx:id="viewProject" layoutX="437.0" layoutY="405.0" onAction="#homeToViewProject" text="View Selected Project" />
+            <Button fx:id="deleteProjectButton" layoutX="433.0" layoutY="431.0" onAction="#deleteSelectedProject" text="Delete Selected Project" />
+			<Button fx:id="editProjectButton" layoutX="433.0" layoutY="457.0" onAction="#editSelectedProject" text="Edit Selected Project" />
+            
+            <Text layoutX="43.0" layoutY="179.0" styleClass="heading" text="Your Projects:" />
+            <TextField fx:id="keyword" layoutX="209.0" layoutY="155.0" prefHeight="27.0" prefWidth="304.0" promptText="Enter keyword to serach project" />
+            <Button layoutX="530.0" layoutY="155.0" mnemonicParsing="false" onAction="#searchProject" text="Search" />
+			
+         </children>
+      </Pane>
+    </children>
+</HBox>

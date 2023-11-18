@@ -24,6 +24,7 @@ public class EditProjectController {
 	void setProject(String projectId) {
 		this.projectId = projectId;
 		DatabaseController dbc = new DatabaseController();
+		
 		Project curr = dbc.getProject(projectId);
 		dateCreated.setValue(LocalDate.parse(curr.getStartDate()));
 		name.setText(curr.getName());

@@ -61,11 +61,12 @@ public class DatabaseController {
 	        resultSet = preparedStatement.executeQuery();
 	        System.out.println("query: " + query + " succeeded");
 
-	        return resultSet;
 		} catch(Exception e) {
 			e.printStackTrace();
 			return null;
 		}
+		
+		return resultSet;
 	}
 	
 	private int countRowsInTable(String tableName) {
@@ -234,21 +235,28 @@ public class DatabaseController {
     Project getProject(String id) {
     	String query = "SELECT * from projectTable WHERE id = " + id;
     	ResultSet project = executeQuery(query);
-    	try {
-			int projectId = project.getInt("id");
-			String name = project.getString("name");
-            String createdAt = project.getString("created");
-            String description = project.getString("description");
-			
-            return new Project(projectId, name, createdAt, description);
-		} catch (SQLException e) { e.printStackTrace(); }
+    	Project projectObject = null;
     	
-    	return null;
+    	try {
+    		while(project.next()) {
+				int projectId = project.getInt("id");
+				String name = project.getString("name");
+	            String createdAt = project.getString("created");
+	            String description = project.getString("description");
+	            projectObject = new Project(projectId, name, createdAt, description);
+    		}
+            
+		} catch (SQLException e) { 
+			e.printStackTrace(); 
+		}
+    	
+    	return projectObject;
     }
     
     Ticket getTicket(String id) {
     	String query = "SELECT * from ticketTable WHERE id = " + id;
     	ResultSet ticket = executeQuery(query);
+    	Ticket ticketObject = null;
     	try {
     		// id, name, created, description
 			int ticketId = ticket.getInt("id");
@@ -256,12 +264,12 @@ public class DatabaseController {
             String name = ticket.getString("name");
             String description = ticket.getString("description");
 			
-            return new Ticket(ticketId, projId, name, description);
+            ticketObject = new Ticket(ticketId, projId, name, description);
 		} catch (SQLException e) { 
 			e.printStackTrace(); 
 		}
     	
-    	return null;
+    	return ticketObject;
     }
     
 
@@ -360,7 +368,7 @@ public class DatabaseController {
     ObservableList<String> getTickets(String id) {
     	createProjectTable(); // used in case projectTable gets deleted
     	String query = "";
-    	System.out.println("id length: " + id.length());
+
     	if (id.length() == 0) 
     		query = "SELECT * FROM ticketTable";
     	else
@@ -368,7 +376,6 @@ public class DatabaseController {
     	
     	ResultSet records = executeQuery(query);
     	ObservableList<String> tickets = FXCollections.observableArrayList();
-    	
     	if (records == null) return tickets;
     	
     	// create project instances and add them to the list of project strings
