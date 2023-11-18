@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -193,7 +194,6 @@ public class DatabaseController {
     public void deleteProjectById(String projectId) {
         String deleteSQL = "DELETE FROM projectTable WHERE id = ?";
         SQLiteDataSource ds = getDataSource();
-        deleteTicketsOfProject(projectId);
 
         try (Connection connection = ds.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(deleteSQL);
@@ -211,6 +211,19 @@ public class DatabaseController {
         try (Connection connection = ds.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(deleteSQL);
             statement.setString(1, projectId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    void deleteCommentsOfTicket(String ticketId) {
+    	String deleteSQL = "DELETE FROM commentTable WHERE ticket_id = ?";
+        SQLiteDataSource ds = getDataSource();
+
+        try (Connection connection = ds.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(deleteSQL);
+            statement.setString(1, ticketId);
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -244,7 +257,9 @@ public class DatabaseController {
             String description = ticket.getString("description");
 			
             return new Ticket(ticketId, projId, name, description);
-		} catch (SQLException e) { e.printStackTrace(); }
+		} catch (SQLException e) { 
+			e.printStackTrace(); 
+		}
     	
     	return null;
     }
@@ -439,5 +454,6 @@ public class DatabaseController {
 		}
     	return comments;	
     }
+    
     
 }
