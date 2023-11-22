@@ -37,7 +37,6 @@ public class ViewProjectController  {
 	void setProject(String id) {
 		DatabaseController dbc = new DatabaseController();
 		projId = id;
-		System.out.println(projId);
 		Project project = dbc.getProject(id);
 		title.setText(project.getName());
 		date.setText(project.getStartDate());
@@ -48,19 +47,46 @@ public class ViewProjectController  {
 	
 	
 	void getTickets(String id) {
+		
 		DatabaseController dbc = new DatabaseController();
 		ObservableList<String> tickets = dbc.getTickets(id);
 		ticketList.setItems(tickets);
 		adjustTicketListHeight();
+		
+		System.out.println("Project ID: " + id);
+		System.out.println("WE GOT TICketS");
 	}
 	
 	@FXML
-	void redirectToViewComment(ActionEvent event) {
+	void redirectToViewTicket(ActionEvent event) {
 		MainController mc = new MainController();
     	String ticketString = ticketList.getSelectionModel().getSelectedItem();
-        String id = mc.getIdFromString(ticketString);
-        setViewCommentScene(event, id);
+        String ticketId = mc.getIdFromString(ticketString);
+        setViewTicketScene(event, ticketId, projId);
 	}
+	
+    @FXML
+    private void deleteSelectedTicket(ActionEvent event) {
+        String ticketString = ticketList.getSelectionModel().getSelectedItem();
+        
+        if (ticketString != null) {
+            String id = getIdFromString(ticketString);
+            deleteTicket(id);
+        }
+    }
+    
+    private void deleteTicket(String id) {
+        DatabaseController dbController = new DatabaseController();
+        dbController.deleteById(id, "ticketTable");
+        refreshTicketList();
+    }
+    
+    private void refreshTicketList() {
+        DatabaseController dbController = new DatabaseController();
+        ObservableList<String> tickets = dbController.getTickets(projId);
+        ticketList.setItems(tickets);
+    }
+    
 	
 	@FXML
 	void searchTicket(ActionEvent event) {
@@ -73,13 +99,14 @@ public class ViewProjectController  {
 	}
 
 	
-	private void setViewCommentScene(ActionEvent event, String id) {
+	private void setViewTicketScene(ActionEvent event, String ticketId, String projectId) {
         Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../view/ViewTicket.fxml")); 
         try {
 			Parent root = fxmlLoader.load();
 			ViewTicketController vtc = fxmlLoader.getController();
-	        vtc.setTicket(id);
+	        vtc.setTicket(ticketId);
+	        vtc.setProject(projectId);
 	        stage.getScene().setRoot(root);
 	        
 		} catch (IOException e) {
@@ -96,4 +123,14 @@ public class ViewProjectController  {
 		int ROW_HEIGHT = 24;
 		ticketList.setPrefHeight(3 * ROW_HEIGHT);
 	}
+	
+    String getIdFromString(String projectString) {
+        // badly extract the id of the project through the string (gotta be a better way but its already saturday)
+        int idOffset = 3;
+        int idIndex = projectString.indexOf("id") + idOffset;
+        int commaIndex = projectString.indexOf(",");
+        
+        String id = projectString.substring(idIndex, commaIndex);
+        return id;
+    }
 }

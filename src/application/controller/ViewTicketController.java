@@ -33,10 +33,12 @@ public class ViewTicketController {
 		DatabaseController dbc = new DatabaseController();
 		Ticket ticket = dbc.getTicket(id);
 		commentList.setItems(dbc.getComments(id));
-		projectId = id;
 		title.setText(ticket.getName());
 		description.setText(ticket.getDescription());
-		
+	}
+	
+	void setProject(String id) {
+		projectId = id;
 	}
 	
 	@FXML

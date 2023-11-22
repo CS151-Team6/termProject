@@ -79,8 +79,7 @@ public class MainController implements Initializable {
     private void deleteProject(String id) {
         // I just realized i could have used name instead of id so some code may be redundant in databaseController
         DatabaseController dbController = new DatabaseController();
-        dbController.deleteProjectById(id);
-
+        dbController.deleteById(id, "projectTable");
         // Refresh the project list after deletion
         refreshProjectList();
     }

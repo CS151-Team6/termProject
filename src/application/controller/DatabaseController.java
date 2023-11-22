@@ -192,18 +192,19 @@ public class DatabaseController {
         updateQuery(updateSQL);
     }
     
-    public void deleteProjectById(String projectId) {
-        String deleteSQL = "DELETE FROM projectTable WHERE id = ?";
+    void deleteById(String id, String tableName) {
+        String deleteSQL = "DELETE FROM " + tableName + " WHERE id = ?";
         SQLiteDataSource ds = getDataSource();
 
         try (Connection connection = ds.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(deleteSQL);
-            statement.setString(1, projectId);
+            statement.setString(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+    
     
     void deleteTicketsOfProject(String projectId) {
         String deleteSQL = "DELETE FROM ticketTable WHERE project_id = ?";
