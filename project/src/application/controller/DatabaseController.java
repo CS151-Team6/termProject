@@ -38,21 +38,32 @@ public class DatabaseController {
 	
 	private Connection getConnection() {
 		ds = getDataSource();
-		if (connection == null)
+		if (connection == null) {
 			try {
 				return getDataSource().getConnection();
 			} catch (SQLException e) {
 				e.printStackTrace();
+				return null;
 			}
+		}
 		
 		try {
 			if (connection.isClosed()) return getDataSource().getConnection();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return null;
 		}
 		
-		// connection is still open, just return it
-		return connection;
+		// connection is still open, close and return it
+		try {
+			connection.close();
+			return getDataSource().getConnection();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+		
 	}
 	
 	
