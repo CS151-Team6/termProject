@@ -77,6 +77,7 @@ public class ViewProjectController  {
     
     private void deleteTicket(String id) {
         DatabaseController dbController = new DatabaseController();
+        dbController.deleteCommentsOfTicket(id);
         dbController.deleteById(id, "ticketTable");
         refreshTicketList();
     }

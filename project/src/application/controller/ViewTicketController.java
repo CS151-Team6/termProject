@@ -28,7 +28,6 @@ public class ViewTicketController {
 	
 	private String projectId;
 	
-	
 	void setTicket(String id) {
 		DatabaseController dbc = new DatabaseController();
 		Ticket ticket = dbc.getTicket(id);

@@ -296,15 +296,19 @@ public class DatabaseController {
     	Ticket ticketObject = null;
     	try {
     		// id, name, created, description
-			int ticketId = ticket.getInt("id");
-			String projId = ticket.getString("project_id");
-            String name = ticket.getString("name");
-            String description = ticket.getString("description");
-			
-            ticketObject = new Ticket(ticketId, projId, name, description);
+    		while (ticket.next()) {
+				int ticketId = ticket.getInt("id");
+				String projId = ticket.getString("project_id");
+	            String name = ticket.getString("name");
+	            String description = ticket.getString("description");
+				
+	            ticketObject = new Ticket(ticketId, projId, name, description); 
+            }
 		} catch (SQLException e) { 
 			e.printStackTrace(); 
 		}
+    	
+    	
     	
     	return ticketObject;
     }
