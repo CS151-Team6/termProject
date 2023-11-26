@@ -26,7 +26,8 @@
             </HBox>
 			<ListView fx:id="ticketList" prefHeight="141.0" prefWidth="600.0" />
 			<Button onAction="#goHome" text="Go Home" />
-			<Button onAction="#redirectToViewComment" text="View Selected Ticket" />
+			<Button onAction="#redirectToViewTicket" text="View Selected Ticket" />
+			<Button onAction="#deleteSelectedTicket" text="Delete Ticket" />
          </children>
       </VBox>
     </children>

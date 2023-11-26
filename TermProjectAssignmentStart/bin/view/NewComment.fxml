@@ -24,7 +24,8 @@
                <VBox.margin>
                   <Insets left="5.0" right="5.0" />
                </VBox.margin></ListView>
-            <Label text="Label" />   
+            <Label text="TImestamp" />
+            <TextField fx:id="timestamp" editable="false" />   
              <Label text="Description" />
              <TextArea fx:id="description" prefHeight="116.0" prefWidth="590.0" promptText="Description">
                <VBox.margin>

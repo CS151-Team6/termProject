@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 
 public class CreateCommentController implements Initializable {
 	@FXML
@@ -22,6 +23,9 @@ public class CreateCommentController implements Initializable {
 	private String ticketId;
 	
 	private String projId;
+	
+	@FXML
+	private TextField timestamp;
 	
 	
 	@FXML
@@ -53,6 +57,8 @@ public class CreateCommentController implements Initializable {
 		ObservableList<String> tickets = dbc.getTickets(""); // blank id gets all tickets
 		ticketList.setItems(tickets);
 		adjustTicketListHeight();
+		String curr =  LocalDate.now().toString() + " " + LocalTime.now().toString();
+		timestamp.setText(curr);
 	}
 	
 	private void adjustTicketListHeight() {
