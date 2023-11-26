@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.HBox?>
+
+<VBox styleClass="hbox-container" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.ViewProjectController">
+    <children>
+      <VBox prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: beige;">
+         <children>	
+        	<Label text="Project: " />
+         	<Text fx:id="title" text="Project" />
+         	<Label text="Created: " />
+			<Text fx:id="date" text="Project" />
+			<Label text="Description: " />
+			<Text fx:id="description" text="Project" />
+			
+			<Label text="Tickets:" />
+            <HBox prefHeight="28.0" prefWidth="600.0" style="-fx-background-color: beige;">
+               <children>
+                  <TextField fx:id="keyword" prefHeight="27.0" prefWidth="254.0" promptText="Enter keyword to seach ticket" />
+                  <Button mnemonicParsing="false" onAction="#searchTicket" text="Search" />
+               </children>
+            </HBox>
+			<ListView fx:id="ticketList" prefHeight="141.0" prefWidth="600.0" />
+			<Button onAction="#goHome" text="Go Home" />
+			<Button onAction="#redirectToViewTicket" text="View Selected Ticket" />
+			<Button onAction="#deleteSelectedTicket" text="Delete Ticket" />
+         </children>
+      </VBox>
+    </children>
+</VBox>
