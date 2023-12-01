@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import application.database.Project;
+import application.controller.EditTicketController;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -133,4 +134,27 @@ public class ViewProjectController  {
         String id = projectString.substring(idIndex, commaIndex);
         return id;
     }
+    
+    @FXML
+    private void editSelectedTicket(ActionEvent event) {
+        String ticketString = ticketList.getSelectionModel().getSelectedItem();
+        String ticketId = getIdFromString(ticketString);
+        setEditTicketScene(event, ticketId, projId);
+    }
+
+
+    private void setEditTicketScene(ActionEvent event, String ticketId, String projectId) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../view/EditTicket.fxml"));
+        try {
+            Parent root = fxmlLoader.load();
+            EditTicketController etc = fxmlLoader.getController();
+            etc.setTicket(ticketId, projectId); // Update this line
+            stage.getScene().setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    
 }
