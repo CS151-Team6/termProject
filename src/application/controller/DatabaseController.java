@@ -220,8 +220,25 @@ public class DatabaseController {
             closeConnection();
         }
     }
+    
+    public void editComment(String commentId, String newText, String newTimeStamp) {
+        String updateSQL = "UPDATE commentTable SET description = ?, created = ? WHERE id = ?";
 
+        SQLiteDataSource ds = getDataSource();
 
+        try (Connection connection = ds.getConnection();
+             PreparedStatement statement = connection.prepareStatement(updateSQL)) {
+
+            statement.setString(1, newText);
+            statement.setString(2, newTimeStamp);
+            statement.setString(3, commentId);
+
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     
     void deleteById(String id, String tableName) {
@@ -307,6 +324,25 @@ public class DatabaseController {
     	return ticketObject;
     }
     
+    public Comment getComment(String id) {
+        String query = "SELECT * FROM commentTable WHERE id = " + id;
+        ResultSet commentResultSet = executeQuery(query);
+        Comment commentObject = null;
+
+        try {
+            while (commentResultSet.next()) {
+                int commentId = commentResultSet.getInt("id");
+                String text = commentResultSet.getString("description");
+                String timeStamp = commentResultSet.getString("created");
+
+                commentObject = new Comment(commentId, text, timeStamp);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return commentObject;
+    }
 
 
     public void updateTicket(Ticket ticket) {
