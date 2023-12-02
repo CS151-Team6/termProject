@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
@@ -8,26 +13,50 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<HBox styleClass="hbox-container" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.MainController">
+<HBox styleClass="hbox-container" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.MainController">
     <children>
-      <Pane prefHeight="565.0" prefWidth="615.0" style="-fx-background-color: beige;">
+      <Pane prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: beige;">
          <children>
-                <ListView fx:id="projectList" layoutX="89.0" layoutY="192.0" prefHeight="203.0" prefWidth="425.0" />
-                <Text layoutX="53.0" layoutY="54.0" text="View a Project to see its Tickets">
+                <ListView fx:id="projectList" layoutX="37.0" layoutY="176.0" prefHeight="203.0" prefWidth="529.0" />
+                <Text layoutX="77.0" layoutY="63.0" text="View a Project to see its Tickets">
                <font>
                   <Font name="Adelle Sans Devanagari Heavy" size="32.0" />
                </font>
             </Text>
-            <Button fx:id="button" layoutX="62.0" layoutY="74.0" mnemonicParsing="false" onAction="#homeToNewProject" text="Create a New Project" />
-            <Button fx:id="button" layoutX="225.0" layoutY="74.0" mnemonicParsing="false" onAction="#homeToNewTicket" text="Create a New Ticket" />
-            <Button layoutX="381.0" layoutY="74.0" mnemonicParsing="false" onAction="#homeToNewComment" text="Create a New Comment" />
-            <Button fx:id="viewProject" layoutX="437.0" layoutY="405.0" onAction="#homeToViewProject" text="View Selected Project" />
-            <Button fx:id="deleteProjectButton" layoutX="433.0" layoutY="431.0" onAction="#deleteSelectedProject" text="Delete Selected Project" />
-			<Button fx:id="editProjectButton" layoutX="433.0" layoutY="457.0" onAction="#editSelectedProject" text="Edit Selected Project" />
             
-            <Text layoutX="43.0" layoutY="179.0" styleClass="heading" text="Your Projects:" />
-            <TextField fx:id="keyword" layoutX="209.0" layoutY="155.0" prefHeight="27.0" prefWidth="304.0" promptText="Enter keyword to serach project" />
-            <Button layoutX="530.0" layoutY="155.0" mnemonicParsing="false" onAction="#searchProject" text="Search" />
+            <Text layoutX="42.0" layoutY="157.0" styleClass="heading" text="Your Projects:" />
+            <TextField fx:id="keyword" layoutX="208.0" layoutY="133.0" prefHeight="27.0" prefWidth="304.0" promptText="Enter keyword to serach project" />
+            <Button layoutX="529.0" layoutY="133.0" mnemonicParsing="false" onAction="#searchProject" text="Search" />
+            <HBox layoutX="85.0" layoutY="84.0">
+               <children>
+                  <Button fx:id="button" mnemonicParsing="false" onAction="#homeToNewProject" text="Create a New Project" />
+                  <Button mnemonicParsing="false" onAction="#homeToNewComment" text="Create a New Comment">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="button" mnemonicParsing="false" onAction="#homeToNewTicket" text="Create a New Ticket">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox layoutX="90.0" layoutY="403.0">
+               <children>
+                  <Button fx:id="viewProject" onAction="#homeToViewProject" text="View Selected Project" />
+      			<Button fx:id="editProjectButton" onAction="#editSelectedProject" text="Edit Selected Project">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="deleteProjectButton" onAction="#deleteSelectedProject" text="Delete Selected Project">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
 			
          </children>
       </Pane>
