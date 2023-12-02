@@ -1,13 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+<<<<<<< HEAD
+		<item key="selection" value="insertCom"/>
+=======
 		<item key="selection" value="createT"/>
+>>>>>>> 61e9a71ef547cb8dca564b3e40f8c52917773e5c
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+<<<<<<< HEAD
+			<item value="insertCom"/>
+			<item value="deleteComments"/>
+			<item value="close"/>
+			<item value="deleteComme"/>
+			<item value="deleteTicket"/>
+			<item value="delete"/>
+			<item value="deleteSelec"/>
+			<item value="deleteProject"/>
+			<item value="getTickets"/>
+			<item value="getTi"/>
+			<item value="refresh"/>
+			<item value="getId"/>
+			<item value=".next"/>
+			<item value="getTick"/>
+			<item value="setP"/>
+=======
 			<item value="createT"/>
 			<item value="cs151"/>
 			<item value="close("/>
@@ -16,15 +37,16 @@
 			<item value="exec"/>
 			<item value="executeQuer"/>
 			<item value="date"/>
+>>>>>>> 61e9a71ef547cb8dca564b3e40f8c52917773e5c
 		</list>
 		<list key="replacehistory">
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item key="DIALOG_X_ORIGIN" value="882"/>
-		<item key="DIALOG_Y_ORIGIN" value="388"/>
-		<item key="DIALOG_WIDTH" value="364"/>
-		<item key="DIALOG_HEIGHT" value="370"/>
+		<item key="DIALOG_X_ORIGIN" value="595"/>
+		<item key="DIALOG_Y_ORIGIN" value="257"/>
+		<item key="DIALOG_WIDTH" value="651"/>
+		<item key="DIALOG_HEIGHT" value="382"/>
 		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-24|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>
 	</section>
 </section>

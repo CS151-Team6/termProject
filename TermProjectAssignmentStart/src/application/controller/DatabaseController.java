@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -47,7 +48,6 @@ public class DatabaseController {
 			e.printStackTrace();
 			return -1;
 		}
-		
 	}
 	
 	// used for SELECT
@@ -61,15 +61,16 @@ public class DatabaseController {
 	        resultSet = preparedStatement.executeQuery();
 	        System.out.println("query: " + query + " succeeded");
 
-	        return resultSet;
 		} catch(Exception e) {
 			e.printStackTrace();
 			return null;
 		}
+		
+		return resultSet;
 	}
 	
 	private int countRowsInTable(String tableName) {
-		String query = "SELECT COUNT(*) FROM " + tableName + ";" ;
+		String query = "SELECT * FROM " + tableName + " ORDER BY id DESC LIMIT 1;";
 		SQLiteDataSource ds = getDataSource();
 		ResultSet resultSet;
 		
@@ -77,13 +78,14 @@ public class DatabaseController {
 	        Connection connection = ds.getConnection();
 	        PreparedStatement preparedStatement = connection.prepareStatement(query);
 	        resultSet = preparedStatement.executeQuery();
-	        int rowCount = resultSet.getInt(1);
-	        
+	        if (resultSet.isClosed()) return 0; // results are closed for empty tables
+	        int rowCount = resultSet.getInt("id") + 1;
 	        connection.close();
 	        return rowCount;
+	        
 		} catch(Exception e) {
 			e.printStackTrace();
-			return -1;
+			return -1; 
 		}
 	}
 	
@@ -178,23 +180,34 @@ public class DatabaseController {
         }
     }
 
-    public void updateProject(Project project) {
-        String updateSQL = "UPDATE projects SET start_date = ?, description = ? WHERE name = ?";
+    public void editProject(String projectId, String name, String dateCreated, String description) {
+    	
+        String updateSQL = "UPDATE projectTable SET name = " +
+        		"\"" + name + "\"" + ", " +
+        		"created = " + "\"" +  dateCreated + "\"" + ", " + 
+        		"description = " + "\"" +  description + "\"" + 
+        		" WHERE id=" + projectId;
+        		
+        System.out.println(updateSQL);
+        updateQuery(updateSQL);
+    }
+    
+    void deleteById(String id, String tableName) {
+        String deleteSQL = "DELETE FROM " + tableName + " WHERE id = ?";
         SQLiteDataSource ds = getDataSource();
-        
-        try(Connection connection = ds.getConnection()) {
-        	PreparedStatement statement = connection.prepareStatement(updateSQL);
-            statement.setString(1, project.getStartDate());
-            statement.setString(2, project.getDescription());
-            statement.setString(3, project.getName());
+
+        try (Connection connection = ds.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(deleteSQL);
+            statement.setString(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
     
-    public void deleteProjectById(String projectId) {
-        String deleteSQL = "DELETE FROM projectTable WHERE id = ?";
+    
+    void deleteTicketsOfProject(String projectId) {
+        String deleteSQL = "DELETE FROM ticketTable WHERE project_id = ?";
         SQLiteDataSource ds = getDataSource();
 
         try (Connection connection = ds.getConnection()) {
@@ -205,26 +218,46 @@ public class DatabaseController {
             e.printStackTrace();
         }
     }
+    
+    void deleteCommentsOfTicket(String ticketId) {
+    	String deleteSQL = "DELETE FROM commentTable WHERE ticket_id = ?";
+        SQLiteDataSource ds = getDataSource();
+
+        try (Connection connection = ds.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(deleteSQL);
+            statement.setString(1, ticketId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     // take an sql query that asks for a project and return a java object representing project
     Project getProject(String id) {
     	String query = "SELECT * from projectTable WHERE id = " + id;
     	ResultSet project = executeQuery(query);
-    	try {
-			int projectId = project.getInt("id");
-			String name = project.getString("name");
-            String createdAt = project.getString("created");
-            String description = project.getString("description");
-			
-            return new Project(projectId, name, createdAt, description);
-		} catch (SQLException e) { e.printStackTrace(); }
+    	Project projectObject = null;
     	
-    	return null;
+    	try {
+    		while(project.next()) {
+				int projectId = project.getInt("id");
+				String name = project.getString("name");
+	            String createdAt = project.getString("created");
+	            String description = project.getString("description");
+	            projectObject = new Project(projectId, name, createdAt, description);
+    		}
+            
+		} catch (SQLException e) { 
+			e.printStackTrace(); 
+		}
+    	
+    	return projectObject;
     }
     
     Ticket getTicket(String id) {
     	String query = "SELECT * from ticketTable WHERE id = " + id;
     	ResultSet ticket = executeQuery(query);
+    	Ticket ticketObject = null;
     	try {
     		// id, name, created, description
 			int ticketId = ticket.getInt("id");
@@ -232,24 +265,15 @@ public class DatabaseController {
             String name = ticket.getString("name");
             String description = ticket.getString("description");
 			
-            return new Ticket(ticketId, projId, name, description);
-		} catch (SQLException e) { e.printStackTrace(); }
+            ticketObject = new Ticket(ticketId, projId, name, description);
+		} catch (SQLException e) { 
+			e.printStackTrace(); 
+		}
     	
-    	return null;
+    	return ticketObject;
     }
     
-    // public void deleteProject(String projectName) {
-    //     String deleteSQL = "DELETE FROM projects WHERE name = ?";
-    //     SQLiteDataSource ds = getDataSource();
-        
-    //     try(Connection connection = ds.getConnection()) {
-    //     	PreparedStatement statement = connection.prepareStatement(deleteSQL);
-    //         statement.setString(1, projectName);
-    //         statement.executeUpdate();
-    //     } catch (SQLException e) {
-    //         e.printStackTrace();
-    //     }
-    // }
+
 
     public void updateTicket(Ticket ticket) {
         String updateSQL = "UPDATE tickets SET name = ?, description = ?, status = ? WHERE id = ?";
@@ -345,7 +369,7 @@ public class DatabaseController {
     ObservableList<String> getTickets(String id) {
     	createProjectTable(); // used in case projectTable gets deleted
     	String query = "";
-    	System.out.println("id length: " + id.length());
+
     	if (id.length() == 0) 
     		query = "SELECT * FROM ticketTable";
     	else
@@ -353,7 +377,6 @@ public class DatabaseController {
     	
     	ResultSet records = executeQuery(query);
     	ObservableList<String> tickets = FXCollections.observableArrayList();
-    	
     	if (records == null) return tickets;
     	
     	// create project instances and add them to the list of project strings
@@ -439,5 +462,6 @@ public class DatabaseController {
 		}
     	return comments;	
     }
+    
     
 }

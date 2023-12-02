@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.HBox?>
+
+<VBox styleClass="hbox-container" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.ViewSearchResultsController">
+    <children>
+      <VBox prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: beige;">
+      	 <Text text="Projects: " />
+         <ListView fx:id="projectList" />
+         <Text text="Tickets: " />
+         <ListView fx:id="ticketList" />
+         <Button onAction="#goHome" text="Go Home" />
+      </VBox>
+    </children>
+</VBox>

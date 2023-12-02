@@ -100,6 +100,20 @@ public class DatabaseController {
         System.out.println("Opened database successfully");
     }
     
+    private Connection connection;
+    
+    public void closeConnection() {
+        try {
+            if (connection != null && !connection.isClosed()) {
+                connection.close();
+                System.out.println("Database connection closed.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    
     void createProjectTable() {
         String query = "CREATE TABLE IF NOT EXISTS projectTable ( " +
                 "id int AUTO_INCREMENT PRIMARY KEY, " +
@@ -192,6 +206,41 @@ public class DatabaseController {
         updateQuery(updateSQL);
     }
     
+    public void editTicket(String ticketId, String projectId, String name, String description) {
+        String updateSQL = "UPDATE ticketTable SET project_id = " +
+                "\"" + projectId + "\"" + ", " +
+                "name = " + "\"" + name + "\"" + ", " +
+                "description = " + "\"" + description + "\"" +
+                " WHERE id=" + ticketId;
+
+        System.out.println(updateSQL);
+        try {
+            updateQuery(updateSQL);
+        } finally {
+            closeConnection();
+        }
+    }
+    
+    public void editComment(String commentId, String newText, String newTimeStamp) {
+        String updateSQL = "UPDATE commentTable SET description = ?, created = ? WHERE id = ?";
+
+        SQLiteDataSource ds = getDataSource();
+
+        try (Connection connection = ds.getConnection();
+             PreparedStatement statement = connection.prepareStatement(updateSQL)) {
+
+            statement.setString(1, newText);
+            statement.setString(2, newTimeStamp);
+            statement.setString(3, commentId);
+
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    
     void deleteById(String id, String tableName) {
         String deleteSQL = "DELETE FROM " + tableName + " WHERE id = ?";
         SQLiteDataSource ds = getDataSource();
@@ -260,12 +309,14 @@ public class DatabaseController {
     	Ticket ticketObject = null;
     	try {
     		// id, name, created, description
-			int ticketId = ticket.getInt("id");
-			String projId = ticket.getString("project_id");
-            String name = ticket.getString("name");
-            String description = ticket.getString("description");
-			
-            ticketObject = new Ticket(ticketId, projId, name, description);
+    		while (ticket.next()) {
+				int ticketId = ticket.getInt("id");
+				String projId = ticket.getString("project_id");
+	            String name = ticket.getString("name");
+	            String description = ticket.getString("description");
+
+	            ticketObject = new Ticket(ticketId, projId, name, description); 
+            }
 		} catch (SQLException e) { 
 			e.printStackTrace(); 
 		}
@@ -273,6 +324,25 @@ public class DatabaseController {
     	return ticketObject;
     }
     
+    public Comment getComment(String id) {
+        String query = "SELECT * FROM commentTable WHERE id = " + id;
+        ResultSet commentResultSet = executeQuery(query);
+        Comment commentObject = null;
+
+        try {
+            while (commentResultSet.next()) {
+                int commentId = commentResultSet.getInt("id");
+                String text = commentResultSet.getString("description");
+                String timeStamp = commentResultSet.getString("created");
+
+                commentObject = new Comment(commentId, text, timeStamp);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return commentObject;
+    }
 
 
     public void updateTicket(Ticket ticket) {
@@ -366,40 +436,40 @@ public class DatabaseController {
     	return projects;
     }
     
-    ObservableList<String> getTickets(String id) {
-    	createProjectTable(); // used in case projectTable gets deleted
-    	String query = "";
+    ObservableList<String> getTickets(String projectId) {
+        createProjectTable(); // used in case projectTable gets deleted
+        String query = "";
 
-    	if (id.length() == 0) 
-    		query = "SELECT * FROM ticketTable";
-    	else
-    		query = "SELECT * FROM ticketTable WHERE project_id = " + id;
-    	
-    	ResultSet records = executeQuery(query);
-    	ObservableList<String> tickets = FXCollections.observableArrayList();
-    	if (records == null) return tickets;
-    	
-    	// create project instances and add them to the list of project strings
-    	try {
-			while (records.next()) {
-				try {
-					int ticketId = records.getInt("id");
-					String projId = records.getString("project_id");
-					String name = records.getString("name");
-	                String description = records.getString("description");
-	                
-	                Ticket project = new Ticket(ticketId, projId, name, description);
-	                tickets.add(project.toString());
-	            
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-				
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-    	return tickets;
+        if (projectId == null || projectId.isEmpty())
+            query = "SELECT * FROM ticketTable";
+        else
+            query = "SELECT * FROM ticketTable WHERE project_id = " + projectId;
+
+        ResultSet records = executeQuery(query);
+        ObservableList<String> tickets = FXCollections.observableArrayList();
+        if (records == null) return tickets;
+
+        // create project instances and add them to the list of project strings
+        try {
+            while (records.next()) {
+                try {
+                    int ticketId = records.getInt("id");
+                    String projId = records.getString("project_id");
+                    String name = records.getString("name");
+                    String description = records.getString("description");
+
+                    Ticket project = new Ticket(ticketId, projId, name, description);
+                    tickets.add(project.toString());
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return tickets;
     }
     
     //stores Ticket instead of String
