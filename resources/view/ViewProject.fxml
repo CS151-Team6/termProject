@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<VBox styleClass="hbox-container" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.ViewProjectController">
+    <children>
+      <VBox prefHeight="450.0" prefWidth="600.0" style="-fx-background-color: beige;">
+         <children>	
+        	<Label text="Project Title: ">
+               <VBox.margin>
+                  <Insets left="5.0" top="5.0" />
+               </VBox.margin></Label>
+         	<Text fx:id="title" text="Project">
+               <font>
+                  <Font name="Lava Devanagari Heavy" size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="5.0" top="5.0" />
+               </VBox.margin></Text>
+         	<Label text="Created Date: ">
+               <VBox.margin>
+                  <Insets left="5.0" top="5.0" />
+               </VBox.margin></Label>
+            <Text fx:id="date" text="Project">
+               <font>
+                  <Font name="Lava Devanagari Heavy" size="13.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="5.0" />
+               </VBox.margin>
+            </Text>
+			<Label text="Description: ">
+               <VBox.margin>
+                  <Insets left="5.0" top="5.0" />
+               </VBox.margin></Label>
+            <Text fx:id="description" text="Project">
+               <font>
+                  <Font name="Lava Devanagari Heavy" size="13.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="5.0" />
+               </VBox.margin>
+            </Text>
+			
+			<Label text="Tickets:">
+               <VBox.margin>
+                  <Insets left="5.0" top="5.0" />
+               </VBox.margin></Label>
+            <HBox prefHeight="28.0" prefWidth="600.0" style="-fx-background-color: beige;">
+               <children>
+                  <TextField fx:id="keyword" prefHeight="27.0" prefWidth="254.0" promptText="Enter keyword to seach ticket">
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin></TextField>
+                  <Button mnemonicParsing="false" onAction="#searchTicket" text="Search" />
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+			<ListView fx:id="ticketList" prefHeight="141.0" prefWidth="600.0">
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" top="5.0" />
+               </VBox.margin></ListView>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+      			<Button onAction="#goHome" text="Go Home" />
+      			<Button onAction="#redirectToViewTicket" text="View Selected Ticket">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button onAction="#editSelectedTicket" text="Edit Ticket">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Button>
+      			<Button onAction="#deleteSelectedTicket" text="Delete Ticket">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+               <padding>
+                  <Insets left="5.0" top="10.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
+    </children>
+</VBox>
